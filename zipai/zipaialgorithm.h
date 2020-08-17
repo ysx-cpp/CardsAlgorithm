@@ -5,8 +5,7 @@
 #include <vector>
 #include <memory>
 
-namespace by {
-namespace zipaialgorithm {
+namespace algorithm {
 
 static const int32_t ROW = 2;
 static const int32_t CLOU = 11;
@@ -15,11 +14,11 @@ using CardGroup = Card[ROW][CLOU];
 
 static CardGroup ZIPAI_CARD_GROUP = { {0} };
 
-class ZpHuPaiAlgorithm
+class ZipaiAlgorithm
 {
 public:
-	ZpHuPaiAlgorithm();
-	~ZpHuPaiAlgorithm();
+	ZipaiAlgorithm();
+	~ZipaiAlgorithm();
 
 	bool CheckHu(const std::vector<Card> &hand_cards);
 	void OutPutDoorCards(std::vector<Card> &hand_cards);
@@ -189,7 +188,6 @@ private:
 	std::vector<std::shared_ptr<DoorCards>> door_group_;
 };
 
-} //namespace zipaialgorithm
-} //namespace by
+} //namespace algorithm
 
 #endif //HU_PAI_ALGO_H

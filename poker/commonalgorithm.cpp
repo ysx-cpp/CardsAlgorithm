@@ -1,19 +1,18 @@
 #include "commonalgorithm.h"
-#include "GeneratorFiles/rpc_PkEnums.h"
 
-namespace by {
+namespace algorithm {
 
 int CommonAlgorithm::FindCardType(const std::vector<ICardPtr>& hand_cards, const PlayCardInfo & play_info, std::vector<ICardPtr> &cards)
 {
 	std::vector<CardInfo> cards_info;
 	poker_algo_.CardsToCardInfo(hand_cards, cards_info);
 
-	switch (play_info.nCardType)
+	switch (play_info.card_type)
 	{
 	case E_PK_OCT_LEAFLET:
 	{
 		auto max_card = poker_algo_.FindMaxCard(cards_info);
-		if (max_card->faceId() > play_info.nCardValue)
+		if (max_card->faceId() > play_info.card_value)
 		{
 			cards.push_back(max_card);
 			return E_PK_OCT_LEAFLET;
@@ -21,22 +20,22 @@ int CommonAlgorithm::FindCardType(const std::vector<ICardPtr>& hand_cards, const
 	}break;
 	case E_PK_OCT_PAIR:
 	{
-		if (FindPair(play_info.nCardValue + 1, cards_info, cards))
+		if (FindPair(play_info.card_value + 1, cards_info, cards))
 			return E_PK_OCT_PAIR;
 	}break;
 	case E_PK_OCT_PAIRS:
 	{
-		if (FindContinuousPairs(play_info.nCardValue + 1, play_info.nContinuLeng, cards_info, cards))
+		if (FindContinuousPairs(play_info.card_value + 1, play_info.continu_leng, cards_info, cards))
 			return E_PK_OCT_PAIR;
 	}break;
 	case E_PK_OCT_STRAIGHT:
 	{
-		if (FindStraight(play_info.nCardValue + 1, play_info.nContinuLeng, cards_info, cards))
+		if (FindStraight(play_info.card_value + 1, play_info.continu_leng, cards_info, cards))
 			return E_PK_OCT_STRAIGHT;
 	}break;
 	case E_PK_OCT_AIRCRAFT:
 	{
-		if (FindAircraft(play_info.nCardValue + 1, play_info.nContinuLeng, 2, cards_info, cards))
+		if (FindAircraft(play_info.card_value + 1, play_info.continu_leng, 2, cards_info, cards))
 			return E_PK_OCT_AIRCRAFT;
 	}break;
 	case E_PK_OCT_THREE:
@@ -45,39 +44,39 @@ int CommonAlgorithm::FindCardType(const std::vector<ICardPtr>& hand_cards, const
 	}break;
 	case E_PK_OCT_THREE_BELT_ONE:
 	{
-		if (FindThreeBeltOne(play_info.nCardValue + 1, cards_info, cards))
+		if (FindThreeBeltOne(play_info.card_value + 1, cards_info, cards))
 			return E_PK_OCT_THREE_BELT_ONE;
 	}break;
 	case E_PK_OCT_THREE_BELT_TOW:
 	{
-		if (FindThreeBeltTwo(play_info.nCardValue + 1, cards_info, cards))
+		if (FindThreeBeltTwo(play_info.card_value + 1, cards_info, cards))
 			return E_PK_OCT_THREE_BELT_TOW;
 	}break;
 	case E_PK_OCT_THREE_BELT_PAIR:
 	{
-		if (FindThreeBeltPair(play_info.nCardValue + 1, cards_info, cards))
+		if (FindThreeBeltPair(play_info.card_value + 1, cards_info, cards))
 			return E_PK_OCT_THREE_BELT_PAIR;
 	}break;
 	case E_PK_OCT_FOUR_BELT_ONE:
 	{
-		if (FindFourBeltOne(play_info.nCardValue + 1, cards_info, cards))
+		if (FindFourBeltOne(play_info.card_value + 1, cards_info, cards))
 			return E_PK_OCT_FOUR_BELT_ONE;
 	}break;
 	case E_PK_OCT_FOUR_BELT_TOW:
 	{
-		if (FindFourBeltTwo(play_info.nCardValue + 1, cards_info, cards))
+		if (FindFourBeltTwo(play_info.card_value + 1, cards_info, cards))
 			return E_PK_OCT_FOUR_BELT_TOW;
 	}break;
 	case E_PK_OCT_FOUR_BELT_THREE:
 	{
-		if (FindFourBeltThree(play_info.nCardValue + 1, cards_info, cards))
+		if (FindFourBeltThree(play_info.card_value + 1, cards_info, cards))
 			return E_PK_OCT_FOUR_BELT_THREE;
 	}break;
 	default:
 		break;
 	}
 
-	if (FindBomb(play_info.nCardValue + 1, cards_info, cards))
+	if (FindBomb(play_info.card_value + 1, cards_info, cards))
 		return E_PK_OCT_BOMB;
 	if (FindKingBomb(cards_info, cards))
 		return E_PK_OCT_FOUR_BELT_ONE;
@@ -98,31 +97,31 @@ int CommonAlgorithm::DiscernCardType(const std::vector<ICardPtr>& play_cards, Pl
 	poker_algo_.CardsToCardInfo(play_cards, cards_info);
 
 	for (auto &iter : play_cards)
-		play_info.vecPlayCards.push_back(iter->indexId());
+		play_info.vec_play_cards.push_back(iter->indexId());
 
 	switch (play_cards.size())
 	{
 	case 1:
 	{
-		play_info.nCardType = E_PK_OCT_LEAFLET;
-		play_info.nContinuLeng = 1;
-		play_info.nCardValue = cards_info.front().face;
+		play_info.card_type = E_PK_OCT_LEAFLET;
+		play_info.continu_leng = 1;
+		play_info.card_value = cards_info.front().face;
 		return E_PK_OCT_LEAFLET;
 	}break;
 	case 2:
 	{
 		if (IsPair(cards_info))
 		{
-			play_info.nCardType = E_PK_OCT_PAIR;
-			play_info.nContinuLeng = 1;
-			play_info.nCardValue = cards_info.front().face;
+			play_info.card_type = E_PK_OCT_PAIR;
+			play_info.continu_leng = 1;
+			play_info.card_value = cards_info.front().face;
 			return E_PK_OCT_PAIR;
 		}
 		if (IsKingBomb(cards_info))
 		{
-			play_info.nCardType = E_PK_OCT_KING_BOMB;
-			play_info.nContinuLeng = 1;
-			play_info.nCardValue = cards_info.front().face;
+			play_info.card_type = E_PK_OCT_KING_BOMB;
+			play_info.continu_leng = 1;
+			play_info.card_value = cards_info.front().face;
 			return E_PK_OCT_KING_BOMB;
 		}
 	}break;
@@ -131,16 +130,16 @@ int CommonAlgorithm::DiscernCardType(const std::vector<ICardPtr>& play_cards, Pl
 	{
 		if (IsBomb(cards_info))
 		{
-			play_info.nCardType = E_PK_OCT_BOMB;
-			play_info.nContinuLeng = 1;
-			play_info.nCardValue = cards_info.front().face;
+			play_info.card_type = E_PK_OCT_BOMB;
+			play_info.continu_leng = 1;
+			play_info.card_value = cards_info.front().face;
 			return E_PK_OCT_BOMB;
 		}
 		if (IsThreeBeltOne(cards_info))
 		{
-			play_info.nCardType = E_PK_OCT_THREE_BELT_ONE;
-			play_info.nContinuLeng = 1;
-			play_info.nCardValue = cards_info.front().face;
+			play_info.card_type = E_PK_OCT_THREE_BELT_ONE;
+			play_info.continu_leng = 1;
+			play_info.card_value = cards_info.front().face;
 			return E_PK_OCT_THREE_BELT_ONE;
 		}
 	}break;
@@ -148,58 +147,58 @@ int CommonAlgorithm::DiscernCardType(const std::vector<ICardPtr>& play_cards, Pl
 	{
 		if (IsThreeBeltTwo(cards_info))
 		{
-			play_info.nCardType = E_PK_OCT_THREE_BELT_TOW;
-			play_info.nContinuLeng = 1;
-			play_info.nCardValue = cards_info.front().face;
+			play_info.card_type = E_PK_OCT_THREE_BELT_TOW;
+			play_info.continu_leng = 1;
+			play_info.card_value = cards_info.front().face;
 			return E_PK_OCT_THREE_BELT_TOW;
 		}
 		if (IsFourBeltOne(cards_info))
 		{
-			play_info.nCardType = E_PK_OCT_FOUR_BELT_ONE;
-			play_info.nContinuLeng = 1;
-			play_info.nCardValue = cards_info.front().face;
+			play_info.card_type = E_PK_OCT_FOUR_BELT_ONE;
+			play_info.continu_leng = 1;
+			play_info.card_value = cards_info.front().face;
 			return E_PK_OCT_FOUR_BELT_ONE;
 		}
 		if (IsFourBeltTwo(cards_info))
 		{
-			play_info.nCardType = E_PK_OCT_FOUR_BELT_TOW;
-			play_info.nContinuLeng = 1;
-			play_info.nCardValue = cards_info.front().face;
+			play_info.card_type = E_PK_OCT_FOUR_BELT_TOW;
+			play_info.continu_leng = 1;
+			play_info.card_value = cards_info.front().face;
 			return E_PK_OCT_FOUR_BELT_TOW;
 		}
 		if (IsFourBeltThree(cards_info))
 		{
-			play_info.nCardType = E_PK_OCT_FOUR_BELT_THREE;
-			play_info.nContinuLeng = 1;
-			play_info.nCardValue = cards_info.front().face;
+			play_info.card_type = E_PK_OCT_FOUR_BELT_THREE;
+			play_info.continu_leng = 1;
+			play_info.card_value = cards_info.front().face;
 			return E_PK_OCT_FOUR_BELT_THREE;
 		}
 		if (IsStraight(cards_info))
 		{
-			play_info.nCardType = E_PK_OCT_STRAIGHT;
-			play_info.nContinuLeng = play_cards.size();
-			play_info.nCardValue = cards_info.front().face;
+			play_info.card_type = E_PK_OCT_STRAIGHT;
+			play_info.continu_leng = play_cards.size();
+			play_info.card_value = cards_info.front().face;
 			return E_PK_OCT_STRAIGHT;
 		}
 		if (IsContinuousPairs(cards_info))
 		{
-			play_info.nCardType = E_PK_OCT_PAIRS;
-			play_info.nContinuLeng = play_cards.size();
-			play_info.nCardValue = cards_info.front().face;
+			play_info.card_type = E_PK_OCT_PAIRS;
+			play_info.continu_leng = play_cards.size();
+			play_info.card_value = cards_info.front().face;
 			return E_PK_OCT_PAIRS;
 		}
 		if (IsAircraft(cards_info, 2))
 		{
-			play_info.nCardType = E_PK_OCT_AIRCRAFT;
-			play_info.nCardValue = cards_info.front().face;
+			play_info.card_type = E_PK_OCT_AIRCRAFT;
+			play_info.card_value = cards_info.front().face;
 
 			int play_card_num = play_cards.size();
 			if ((play_card_num - 4) % 3 == 0)
-				play_info.nContinuLeng = 2;
+				play_info.continu_leng = 2;
 			if ((play_card_num - 6) % 3 == 0)
-				play_info.nContinuLeng = 3;
+				play_info.continu_leng = 3;
 			if ((play_card_num - 8) % 3 == 0)
-				play_info.nContinuLeng = 4;
+				play_info.continu_leng = 4;
 
 			return E_PK_OCT_AIRCRAFT;
 		}
@@ -490,4 +489,4 @@ int CommonAlgorithm::GetCardsCount(const std::vector<CardInfo>& cards_info)
 	return count;
 }
 
-} //namespace by
+} //namespace algorithm

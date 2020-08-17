@@ -1,11 +1,12 @@
-﻿#include <assert.h>
+﻿#include "pokeralgorithm.h"
+#include <assert.h>
 #include <stdexcept>
 #include <string.h>
 #include <algorithm>
 #include <functional>
-#include "pokeralgorithm.h"
+#include <map>
 
-namespace by {
+namespace algorithm {
 
 ICardPtr PokerAlgorithm::FindMaxCard(const std::vector<CardInfo>& cards_info)
 {
@@ -347,4 +348,4 @@ bool PokerAlgorithm::CompareCardIndex(const ICardPtr & c1, const ICardPtr & c2)
 	return c1->indexId() < c2->indexId();
 }
 
-} //namespace by
+} //namespace algorithm

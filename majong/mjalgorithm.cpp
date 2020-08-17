@@ -1,16 +1,16 @@
-#include "hupaialgorithm.h"
+#include "mjalgorithm.h"
 
-namespace mahjongalgorithm {
+namespace algorithm {
 
-HuPaiAlgorithm::HuPaiAlgorithm()
+MjAlgorithm::MjAlgorithm()
 {
 }
 
-HuPaiAlgorithm::~HuPaiAlgorithm()
+MjAlgorithm::~MjAlgorithm()
 {
 }
 
-void HuPaiAlgorithm::InputHandCard(const std::vector<ICardPtr> &hand_cards)
+void MjAlgorithm::InputHandCard(const std::vector<ICardPtr> &hand_cards)
 {
 	hand_cards_info_.clear();
 	memset(card_group_, 0, sizeof(CardGroup));
@@ -28,40 +28,40 @@ void HuPaiAlgorithm::InputHandCard(const std::vector<ICardPtr> &hand_cards)
 	}
 }
 
-void HuPaiAlgorithm::OutPutDoorCards(std::vector<DoorGroupPtr> &door_card_group)
-{
-	for (auto &it : door_group_)
-	{
-		DoorGroupPtr door_ptr = std::make_shared<DoorGroup>();
-		for (auto &iter : it->cards)
-		{
-			if (hand_cards_info_.find(iter) != hand_cards_info_.end() && !hand_cards_info_[iter].empty())
-			{
-				int index = hand_cards_info_[iter].back();
-				door_ptr->m_vSelfCard.push_back(index);
-				hand_cards_info_[iter].pop_back();
-			}		
-		}
-		door_card_group.push_back(door_ptr);
-	}
-}
+//void MjAlgorithm::OutPutDoorCards(std::vector<DoorGroupPtr> &door_card_group)
+//{
+//	for (auto &it : door_group_)
+//	{
+//		DoorGroupPtr door_ptr = std::make_shared<DoorGroup>();
+//		for (auto &iter : it->cards)
+//		{
+//			if (hand_cards_info_.find(iter) != hand_cards_info_.end() && !hand_cards_info_[iter].empty())
+//			{
+//				int index = hand_cards_info_[iter].back();
+//				door_ptr->m_vSelfCard.push_back(index);
+//				hand_cards_info_[iter].pop_back();
+//			}		
+//		}
+//		door_card_group.push_back(door_ptr);
+//	}
+//}
 
-bool HuPaiAlgorithm::CheckPingHu()
+bool MjAlgorithm::CheckPingHu()
 {
 	return CheckJiangCanHu(card_group_);
 }
 
-bool HuPaiAlgorithm::CheckQiDuiHu()
+bool MjAlgorithm::CheckQiDuiHu()
 {
 	return QiDuiHu(card_group_);
 }
 
-bool HuPaiAlgorithm::CheckShiSanYaoHu()
+bool MjAlgorithm::CheckShiSanYaoHu()
 {
 	return ShiSanYaoHu(card_group_);
 }
 
-bool HuPaiAlgorithm::CheckJiangCanHu(CardGroup cards)
+bool MjAlgorithm::CheckJiangCanHu(CardGroup cards)
 {
 	if (laizi_num() >= 2 && CheckLaiZiJiangHu(cards))
 	{
@@ -115,7 +115,7 @@ bool HuPaiAlgorithm::CheckJiangCanHu(CardGroup cards)
 	return is_hu;
 }
 
-bool HuPaiAlgorithm::CheckLaiZiJiangHu(CardGroup cards)
+bool MjAlgorithm::CheckLaiZiJiangHu(CardGroup cards)
 {
 	bool is_hu = false;
 
@@ -134,7 +134,7 @@ bool HuPaiAlgorithm::CheckLaiZiJiangHu(CardGroup cards)
 	return is_hu;
 }
 
-bool HuPaiAlgorithm::CheckCompose333(CardGroup cards)
+bool MjAlgorithm::CheckCompose333(CardGroup cards)
 {
 	if (laizi_num_ % 3 == 0 && cards[0][0] + cards[1][0] == 0)
 	{
@@ -282,7 +282,7 @@ bool HuPaiAlgorithm::CheckCompose333(CardGroup cards)
 	return laizi_num_ % 3 == 0 && cards[0][0] + cards[1][0] == 0;
 }
 
-bool HuPaiAlgorithm::QiDuiHu(CardGroup cards)
+bool MjAlgorithm::QiDuiHu(CardGroup cards)
 {
 	int single_cnt = 0;
 	int all_card = 0;
@@ -313,7 +313,7 @@ bool HuPaiAlgorithm::QiDuiHu(CardGroup cards)
 	return true;
 }
 
-bool HuPaiAlgorithm::ShiSanYaoHu(CardGroup cards)
+bool MjAlgorithm::ShiSanYaoHu(CardGroup cards)
 {
 	int jiang_num = 0;
 	int count = 0;

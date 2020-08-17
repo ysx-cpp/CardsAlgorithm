@@ -2,11 +2,11 @@
 #define POKER_COMMON_ALGORITHM_H
 
 #include <vector>
-#include "../CPkCard.h"
+#include "pkcard.h"
 #include "pokeralgorithm.h"
-#include "gameBase/core/CTarget.h"
+#include "playcardinfo.h"
 
-namespace by {
+namespace algorithm {
 
 class CommonAlgorithm
 {
@@ -54,8 +54,5 @@ private:
 	PokerAlgorithm poker_algo_;
 };
 
-
-
-
-} // namespace by
+} // namespace algorithm
 #endif // PDKGAME_POKER_ALGORITHM_H

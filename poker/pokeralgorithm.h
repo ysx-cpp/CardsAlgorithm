@@ -3,9 +3,9 @@
 
 #include <algorithm>
 #include <vector>
-#include "../CPkCard.h"
+#include "pkcard.h"
 
-namespace by {
+namespace algorithm {
 
 struct CardInfo
 {
@@ -25,7 +25,7 @@ class PokerAlgorithm
 {
 public:
 	PokerAlgorithm() 
-		: laizi_card_(boost::make_shared<CPkCard>(CPkCard::E_INVALID_TYPE, CPkCard::E_INVALID_FACE, -1))
+		: laizi_card_(std::make_shared<CPkCard>(CPkCard::E_INVALID_TYPE, CPkCard::E_INVALID_FACE, -1))
 	{
 	}
 	virtual ~PokerAlgorithm() {}
@@ -62,5 +62,5 @@ private:
 	ICardPtr laizi_card_;
 };
 
-} // namespace by
+} // algorithm
 #endif // PKGAME_POKER_ALGORITHM_H

@@ -5,26 +5,24 @@
 #include <memory>
 #include <vector>
 #include <map>
+#include "mjcard.h"
 
-#include "../CMjCard.h"
-#include "GeneratorFiles/rpc_FillStructs_Def.h"
+namespace algorithm {
 
-namespace mahjongalgorithm {
-
-class HuPaiAlgorithm
+class MjAlgorithm
 {
-	static const uint32_t ROW = CMjCard::E_TYPE_COUNT_;
-	static const uint32_t CLOU = CMjCard::E_FACE_COUNT_;
+	static const uint32_t ROW = MjCard::E_TYPE_COUNT_;
+	static const uint32_t CLOU = MjCard::E_FACE_COUNT_;
 
 	using Card = unsigned char;
 	using CardGroup = Card[ROW][CLOU];
 
 public:
-	HuPaiAlgorithm();
-	~HuPaiAlgorithm();
+	MjAlgorithm();
+	~MjAlgorithm();
 
 	void InputHandCard(const std::vector<ICardPtr> &hand_cards);
-	void OutPutDoorCards(std::vector<DoorGroupPtr> &hand_cards);
+	//void OutPutDoorCards(std::vector<DoorGroupPtr> &hand_cards);
 	bool CheckPingHu();
 	bool CheckQiDuiHu();
 	bool CheckShiSanYaoHu();
@@ -109,6 +107,6 @@ private:
 	std::map<Card, std::vector<int>> hand_cards_info_;
 };
 
-} //namespace mahjongalgorithm
+} //namespace algorithm
 
 #endif //MJGAME_HU_PAI_ALGORITHM_H

@@ -1,7 +1,7 @@
 #ifndef MJGAME_MAHJONG_ALGO_H
 #define MJGAME_MAHJONG_ALGO_H
 
-#include "hupaialgorithm.h"
+#include "mahjongalgo.h"
 #include "gameBase/calc/CHuPaiAnalyzer.h"
 
 namespace mahjongalgorithm {

@@ -1,7 +1,6 @@
-#include "ZpHuPaiAlgorithm.h"
+#include "zipaialgorithm.h"
 
-namespace by {
-namespace zipaialgorithm {
+namespace algorithm {
 
 enum CardType
 {
@@ -13,15 +12,15 @@ enum CardType
 	TWO_SEVEN_TEN	= 5, //¶þÆßÊ®
 };
 
-ZpHuPaiAlgorithm::ZpHuPaiAlgorithm()
+ZipaiAlgorithm::ZipaiAlgorithm()
 {
 }
 
-ZpHuPaiAlgorithm::~ZpHuPaiAlgorithm()
+ZipaiAlgorithm::~ZipaiAlgorithm()
 {
 }
 
-bool ZpHuPaiAlgorithm::CheckHu(const std::vector<Card> &hand_cards)
+bool ZipaiAlgorithm::CheckHu(const std::vector<Card> &hand_cards)
 {
 	door_group_.clear();
 	CardGroup cards = { { 0 } };
@@ -35,7 +34,7 @@ bool ZpHuPaiAlgorithm::CheckHu(const std::vector<Card> &hand_cards)
 	return CheckCompose333(cards);
 }
 
-void ZpHuPaiAlgorithm::OutPutDoorCards(std::vector<Card> &hand_cards)
+void ZipaiAlgorithm::OutPutDoorCards(std::vector<Card> &hand_cards)
 {
 	for (auto &it : door_group_)
 	{
@@ -43,7 +42,7 @@ void ZpHuPaiAlgorithm::OutPutDoorCards(std::vector<Card> &hand_cards)
 	}
 }
 
-void ZpHuPaiAlgorithm::InputHandCard(const std::vector<Card> &hand_cards, CardGroup cards)
+void ZipaiAlgorithm::InputHandCard(const std::vector<Card> &hand_cards, CardGroup cards)
 {
 	for (auto &iter : hand_cards)
 	{
@@ -54,7 +53,7 @@ void ZpHuPaiAlgorithm::InputHandCard(const std::vector<Card> &hand_cards, CardGr
 	}
 }
 
-void ZpHuPaiAlgorithm::ComposeKeZi(CardGroup cards, const Card target_card, const bool is_other)
+void ZipaiAlgorithm::ComposeKeZi(CardGroup cards, const Card target_card, const bool is_other)
 {
 	for (int i = 0; i < ROW; ++i)
 	{
@@ -79,7 +78,7 @@ void ZpHuPaiAlgorithm::ComposeKeZi(CardGroup cards, const Card target_card, cons
 	}
 }
 
-bool ZpHuPaiAlgorithm::CheckHaveKanZi(const CardGroup cards) const
+bool ZipaiAlgorithm::CheckHaveKanZi(const CardGroup cards) const
 {
 	for (int i = 0; i < ROW; ++i)
 	{
@@ -92,7 +91,7 @@ bool ZpHuPaiAlgorithm::CheckHaveKanZi(const CardGroup cards) const
 	return false;
 }
 
-bool ZpHuPaiAlgorithm::CheckCompose333(CardGroup cards)
+bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 {
 	if (laizi_num_ % 3 == 0 && cards[0][0] + cards[1][0] == 0)
 		return true;
@@ -454,7 +453,7 @@ bool ZpHuPaiAlgorithm::CheckCompose333(CardGroup cards)
 	return laizi_num_ % 3 == 0 && cards[0][0] + cards[1][0] == 0;
 }
 
-bool ZpHuPaiAlgorithm::CheckJiangCanHu(CardGroup cards)
+bool ZipaiAlgorithm::CheckJiangCanHu(CardGroup cards)
 {
 	bool is_hu = false;
 	for (int i = 0; i < ROW; ++i)
@@ -513,7 +512,7 @@ bool ZpHuPaiAlgorithm::CheckJiangCanHu(CardGroup cards)
 	return is_hu;
 }
 
-bool ZpHuPaiAlgorithm::CheckCompose433(CardGroup cards)
+bool ZipaiAlgorithm::CheckCompose433(CardGroup cards)
 {
 	CardGroup clone_cards = { { 0 } };
 	memcpy(clone_cards, cards, sizeof(CardGroup));
@@ -553,4 +552,3 @@ bool ZpHuPaiAlgorithm::CheckCompose433(CardGroup cards)
 }
 
 } //namespace algorithm
-} //namespace by
