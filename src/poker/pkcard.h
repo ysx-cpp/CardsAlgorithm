@@ -56,7 +56,7 @@ public:
 	virtual int typeId() const { return type_; }
 	virtual int faceId() const { return face_; }
 	virtual int clrId() const { return 0; }
-	virtual bool IsEmpty() const { return false; }
+	virtual bool isEmpty() const { return false; }
 	virtual std::string Name() const;
 	
 	//bool operator==(const ICardPtr c) const { return index_ == c->indexId(); }

@@ -24,16 +24,16 @@ std::string MjCard::Name() const
 	std::string name(std::to_string(m_eFace_));
 	switch (m_eType_)
 	{
-	case by::MjCard::E_MYRIAD_TYPE:
+	case MjCard::E_MYRIAD_TYPE:
 		name.append("万");
 		break;
-	case by::MjCard::E_CYLINDER_TYPE:
+	case MjCard::E_CYLINDER_TYPE:
 		name.append("筒");
 		break;
-	case by::MjCard::E_SLIVER_TYPE:
+	case MjCard::E_SLIVER_TYPE:
 		name.append("条");
 		break;
-	case by::MjCard::E_WIND_TYPE:
+	case MjCard::E_WIND_TYPE:
 	{
 		if (m_eFace_ == E_FACE_ONE)
 			name = "东";
@@ -45,7 +45,7 @@ std::string MjCard::Name() const
 			name = "北";
 	}
 		break;
-	case by::MjCard::E_WORD_TYPE:
+	case MjCard::E_WORD_TYPE:
 	{
 		if (m_eFace_ == E_FACE_ONE)
 			name = "中";
