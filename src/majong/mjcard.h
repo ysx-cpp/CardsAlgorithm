@@ -5,8 +5,8 @@
  * @github https://github.com/ysx-cpp
  * @date Oct 08 2020
  */
-#ifndef MJGAME_CMJ_CARD_H
-#define MJGAME_CMJ_CARD_H
+#ifndef MAJONG_MJ_CARD_H
+#define MAJONG_MJ_CARD_H
 
 #include "icard.h"
 
@@ -43,27 +43,27 @@ public:
 
 public:
 	MjCard(EType type, EFace face, int index)
-		: m_eType_(type),
-		m_eFace_(face),
-		m_nIndex_(index)
+		: type_(type),
+		face_(face),
+		index_(index)
 	{
 	}
 	virtual ~MjCard() {}
-	virtual int indexId() const;
-	virtual int typeId() const;
-	virtual int faceId() const;
-	virtual int clrId() const;
+	virtual int IndexId() const;
+	virtual int TypeId() const;
+	virtual int FaceId() const;
+	virtual int ClrId() const;
 	virtual bool IsEmpty() const { return false; };
 	virtual std::string Name() const;
 	
 
 private:
-	EType   m_eType_;
-	EFace   m_eFace_;
-	int     m_nIndex_;
+	EType   type_;
+	EFace   face_;
+	int     index_;
 };
 
 using MjCardPtr = std::shared_ptr<MjCard>;
 
 } // namespace by
-#endif // MJGAME_CMJ_CARD_H
+#endif // MAJONG_MJ_CARD_H

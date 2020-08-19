@@ -35,7 +35,7 @@ bool PokerAlgorithm::FindSameColor(const size_t size, const std::vector<CardInfo
 		{
 			for (auto &iter : it->cards)
 			{
-				if (type != iter->faceId()) continue;
+				if (type != iter->FaceId()) continue;
 				cards.push_back(iter);
 				if (cards.size() == size)
 				{
@@ -59,7 +59,7 @@ bool PokerAlgorithm::FindStraightFlush(const int begin_face, const size_t size, 
 			if (it->face < begin_face) continue;
 
 			auto iter = std::find_if((it - 1)->cards.begin(), (it - 1)->cards.end(), [type](const ICardPtr & item){
-				return item->typeId() == type;
+				return item->TypeId() == type;
 			});
 			if (iter == it->cards.end())
 			{
@@ -267,7 +267,7 @@ bool PokerAlgorithm::IsLaiZiContinuousCards(const std::vector<CardInfo> & cards_
 		card_slot.emplace(first, count * size);
 		for (int k = first; k < first + size; ++k)
 		{
-			if (k == laizi_card_->faceId()) continue;
+			if (k == laizi_card_->FaceId()) continue;
 			auto it = find_if(cards_info.begin(), cards_info.end(), [k](const CardInfo & item){
 				return item.face == k;
 			});
@@ -309,8 +309,8 @@ void PokerAlgorithm::CardsToCardInfo(const std::vector<ICardPtr> & hand_cards, s
 	for (auto it = hand_cards.begin(); it != hand_cards.end(); ++it)
 	{	
 		auto iter = std::find(hand_cards_info.begin(), hand_cards_info.end(), *it);
-		int face = (*it)->faceId();
-		int type = (*it)->typeId();
+		int face = (*it)->FaceId();
+		int type = (*it)->TypeId();
 		if (iter == hand_cards_info.end())
 		{
 			CardInfo cardInfo(face);
@@ -344,15 +344,15 @@ bool PokerAlgorithm::CompareCardType(const int & type1, const int & type2)
 
 bool PokerAlgorithm::CompareCardValue(const ICardPtr & c1, const ICardPtr & c2)
 {
-	if (c1->faceId() == c2->faceId())
-		return c1->typeId() < c2->typeId();
+	if (c1->FaceId() == c2->FaceId())
+		return c1->TypeId() < c2->TypeId();
 
-	return c1->faceId() < c2->faceId();
+	return c1->FaceId() < c2->FaceId();
 }
 
 bool PokerAlgorithm::CompareCardIndex(const ICardPtr & c1, const ICardPtr & c2)
 {
-	return c1->indexId() < c2->indexId();
+	return c1->IndexId() < c2->IndexId();
 }
 
 } //namespace algorithm

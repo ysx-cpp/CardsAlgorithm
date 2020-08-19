@@ -5,8 +5,8 @@
  * @github https://github.com/ysx-cpp
  * @date Oct 08 2020
  */
-#ifndef ROBOT_ZP_HU_PAI_ALGO_H
-#define ROBOT_ZP_HU_PAI_ALGO_H
+#ifndef ZIPAI_ALGORITHM_H
+#define ZIPAI_ALGORITHM_H
 
 #include <stdint.h>
 #include <vector>
@@ -16,9 +16,8 @@ namespace algorithm {
 
 static const int32_t ROW = 2;
 static const int32_t CLOU = 11;
-using Card = unsigned char;
+using Card = unsigned char;//color=0x10 value=0x01 一个字节8个位，前4位0x10表示牌花色，后4位0x01表示牌的值
 using CardGroup = Card[ROW][CLOU];
-
 static CardGroup ZIPAI_CARD_GROUP = { {0} };
 
 class ZipaiAlgorithm
@@ -30,7 +29,7 @@ public:
 	bool CheckHu(const std::vector<Card> &hand_cards);
 	void OutPutDoorCards(std::vector<Card> &hand_cards);
 
-	void SetLaiZi(const int num) { laizi_num_ = num; }
+	void set_laizi_num(const int num) { laizi_num_ = num; }
 	const int laizi_num() const { return laizi_num_; }
 
 private:
@@ -168,7 +167,7 @@ private:
 		return laizi_num() >= 2 && cards[type][value] > 0;
 	}
 
-	Card recoverCard(const int &type, const int &value) const
+	Card RecoverCard(const int &type, const int &value) const
 	{
 		return ((type + 1) << 4) | (value & 0x0F);
 	}
@@ -197,4 +196,4 @@ private:
 
 } //namespace algorithm
 
-#endif //HU_PAI_ALGO_H
+#endif //ZIPAI_ALGORITHM_H

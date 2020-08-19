@@ -1,5 +1,5 @@
-#ifndef CARD
-#define CARD
+#ifndef ICARD_H
+#define ICARD_H
 #include <memory>
 #include <string>
 
@@ -7,15 +7,15 @@ class ICard
 {
 public:
 	virtual ~ICard() {}
-	virtual int indexId() const = 0;
-	virtual int typeId() const = 0;
-	virtual int faceId() const = 0;
-	virtual int clrId() const = 0;
-	virtual bool isEmpty() const = 0;
+	virtual int IndexId() const = 0;
+	virtual int TypeId() const = 0;
+	virtual int FaceId() const = 0;
+	virtual int ClrId() const = 0;
+	virtual bool IsEmpty() const = 0;
 	virtual std::string Name() const = 0;
 };
 
 using ICardPtr = std::shared_ptr<ICard>;
 
-#endif // CARD
+#endif // ICARD_H
 

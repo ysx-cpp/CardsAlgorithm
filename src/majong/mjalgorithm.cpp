@@ -24,14 +24,14 @@ void MjAlgorithm::InputHandCard(const std::vector<ICardPtr> &hand_cards)
 
 	for (auto &iter : hand_cards)
 	{
-		if (iter->typeId() == type(laizi_card_) && iter->faceId() == value(laizi_card_))
+		if (iter->TypeId() == type(laizi_card_) && iter->FaceId() == value(laizi_card_))
 			continue;
 
-		card_group_[iter->typeId()][iter->faceId()] += 1;
-		card_group_[iter->typeId()][0] += 1;
+		card_group_[iter->TypeId()][iter->FaceId()] += 1;
+		card_group_[iter->TypeId()][0] += 1;
 
-		auto c = recoverCard(iter->typeId(), iter->faceId());
-		hand_cards_info_[c].push_back(iter->indexId());
+		auto c = recoverCard(iter->TypeId(), iter->FaceId());
+		hand_cards_info_[c].push_back(iter->IndexId());
 	}
 }
 

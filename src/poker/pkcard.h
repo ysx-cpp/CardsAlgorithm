@@ -5,8 +5,8 @@
  * @github https://github.com/ysx-cpp
  * @date Oct 08 2020
  */
-#ifndef PKGAME_CPDK_CARD_H
-#define PKGAME_CPDK_CARD_H
+#ifndef POKER_PK_CARD_H
+#define POKER_PK_CARD_H
 
 #include "icard.h"
 
@@ -56,15 +56,15 @@ public:
 	{
 	}
 	virtual ~CPkCard() {}
-	virtual int indexId() const { return index_; }
-	virtual int typeId() const { return type_; }
-	virtual int faceId() const { return face_; }
-	virtual int clrId() const { return 0; }
-	virtual bool isEmpty() const { return false; }
+	virtual int IndexId() const { return index_; }
+	virtual int TypeId() const { return type_; }
+	virtual int FaceId() const { return face_; }
+	virtual int ClrId() const { return 0; }
+	virtual bool IsEmpty() const { return false; }
 	virtual std::string Name() const;
 	
 	//bool operator==(const ICardPtr c) const { return index_ == c->indexId(); }
-	bool operator==(const ICardPtr c) const { return face_ == c->faceId(); }
+	bool operator==(const ICardPtr c) const { return face_ == c->FaceId(); }
 
 private:
 	EType   type_;
@@ -75,4 +75,4 @@ private:
 using CPkCardPtr = std::shared_ptr<CPkCard>;
 
 } // namespace algorithm
-#endif // PKGAME_CPDK_CARD_H
+#endif // POKER_PK_CARD_H

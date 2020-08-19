@@ -9,27 +9,27 @@
 
 namespace algorithm {
 
-int MjCard::indexId() const
+int MjCard::IndexId() const
 {
-	return m_nIndex_;
+	return index_;
 }
 
-int MjCard::typeId() const
+int MjCard::TypeId() const
 {
-	return m_eType_;
+	return type_;
 }
-int MjCard::faceId() const
+int MjCard::FaceId() const
 {
-	return m_eFace_;
+	return face_;
 }
-int MjCard::clrId() const
+int MjCard::ClrId() const
 {
 	return 0;
 }
 std::string MjCard::Name() const
 {
-	std::string name(std::to_string(m_eFace_));
-	switch (m_eType_)
+	std::string name(std::to_string(face_));
+	switch (type_)
 	{
 	case MjCard::E_MYRIAD_TYPE:
 		name.append("万");
@@ -42,30 +42,30 @@ std::string MjCard::Name() const
 		break;
 	case MjCard::E_WIND_TYPE:
 	{
-		if (m_eFace_ == E_FACE_ONE)
+		if (face_ == E_FACE_ONE)
 			name = "东";
-		else if (m_eFace_ == E_FACE_TWO)
+		else if (face_ == E_FACE_TWO)
 			name = "南";
-		else if (m_eFace_ == E_FACE_THREE)
+		else if (face_ == E_FACE_THREE)
 			name = "西";
-		else if (m_eFace_ == E_FACE_FOUR)
+		else if (face_ == E_FACE_FOUR)
 			name = "北";
 	}
 		break;
 	case MjCard::E_WORD_TYPE:
 	{
-		if (m_eFace_ == E_FACE_ONE)
+		if (face_ == E_FACE_ONE)
 			name = "中";
-		else if (m_eFace_ == E_FACE_TWO)
+		else if (face_ == E_FACE_TWO)
 			name = "发";
-		else if (m_eFace_ == E_FACE_THREE)
+		else if (face_ == E_FACE_THREE)
 			name = "白";
 	}
 		break;
 	default:
 		break;
 	} 
-	name.append(std::to_string(m_nIndex_));
+	name.append(std::to_string(index_));
 
 	return name;
 }

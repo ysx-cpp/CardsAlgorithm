@@ -67,7 +67,7 @@ void ZipaiAlgorithm::ComposeKeZi(CardGroup cards, const Card target_card, const 
 		if (cards[i][0] < 3) continue;
 		for (int j = 1; j < CLOU; ++j)
 		{
-			if (!is_other && target_card == recoverCard(i, j)) continue;
+			if (!is_other && target_card == RecoverCard(i, j)) continue;
 			if (cards[i][j] == 3)
 			{
 				cards[i][j] -= 3;
@@ -76,9 +76,9 @@ void ZipaiAlgorithm::ComposeKeZi(CardGroup cards, const Card target_card, const 
 				door_card->card_type = KE_ZI;
 				door_card->huzi = 3;
 				if (i == 1) door_card->huzi *= 2;
-				door_card->cards.push_back(recoverCard(i, j));
-				door_card->cards.push_back(recoverCard(i, j));
-				door_card->cards.push_back(recoverCard(i, j));
+				door_card->cards.push_back(RecoverCard(i, j));
+				door_card->cards.push_back(RecoverCard(i, j));
+				door_card->cards.push_back(RecoverCard(i, j));
 				door_group_.push_back(door_card);
 			}
 		}
@@ -124,9 +124,9 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 					door_card->card_type = KE_ZI;
 					door_card->huzi = 3;
 					if (i == 1) door_card->huzi *= 2;
-					door_card->cards.push_back(recoverCard(i, j));
-					door_card->cards.push_back(recoverCard(i, j));
-					door_card->cards.push_back(recoverCard(i, j));
+					door_card->cards.push_back(RecoverCard(i, j));
+					door_card->cards.push_back(RecoverCard(i, j));
+					door_card->cards.push_back(RecoverCard(i, j));
 					door_group_.push_back(door_card);
 					return true;
 				}
@@ -150,8 +150,8 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 					auto door_card = std::make_shared<DoorCards>();
 					door_card->huzi = 3;
 					if (i == 1) door_card->huzi *= 2;
-					door_card->cards.push_back(recoverCard(i, 2));
-					door_card->cards.push_back(recoverCard(i, 7));
+					door_card->cards.push_back(RecoverCard(i, 2));
+					door_card->cards.push_back(RecoverCard(i, 7));
 					//door_card.cards.push_back(recoverCard(i, 10));
 					door_group_.push_back(door_card);
 					return true;
@@ -174,8 +174,8 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 					auto door_card = std::make_shared<DoorCards>();
 					door_card->huzi = 3;
 					if (i == 1) door_card->huzi *= 2;
-					door_card->cards.push_back(recoverCard(i, 2));
-					door_card->cards.push_back(recoverCard(i, 10));
+					door_card->cards.push_back(RecoverCard(i, 2));
+					door_card->cards.push_back(RecoverCard(i, 10));
 					//door_card.cards.push_back(recoverCard(i, j));
 					door_group_.push_back(door_card);
 					return true;
@@ -198,8 +198,8 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 					auto door_card = std::make_shared<DoorCards>();
 					door_card->huzi = 3;
 					if (i == 1) door_card->huzi *= 2;
-					door_card->cards.push_back(recoverCard(i, 7));
-					door_card->cards.push_back(recoverCard(i, 10));
+					door_card->cards.push_back(RecoverCard(i, 7));
+					door_card->cards.push_back(RecoverCard(i, 10));
 					//door_card.cards.push_back(recoverCard(i, j));
 					door_group_.push_back(door_card);
 					return true;
@@ -222,8 +222,8 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 					auto door_card = std::make_shared<DoorCards>();
 					if (j == 1 || j == 2) door_card->huzi = 3;
 					if (i == 1) door_card->huzi *= 2;
-					door_card->cards.push_back(recoverCard(i, j));
-					door_card->cards.push_back(recoverCard(i, j + 1));
+					door_card->cards.push_back(RecoverCard(i, j));
+					door_card->cards.push_back(RecoverCard(i, j + 1));
 					//door_card.cards.push_back(recoverCard(i, j));
 					door_group_.push_back(door_card);
 					return true;
@@ -246,8 +246,8 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 					auto door_card = std::make_shared<DoorCards>();
 					if (j == 1) door_card->huzi = 3;
 					if (i == 1) door_card->huzi *= 2;
-					door_card->cards.push_back(recoverCard(i, j));
-					door_card->cards.push_back(recoverCard(i, j + 2));
+					door_card->cards.push_back(RecoverCard(i, j));
+					door_card->cards.push_back(RecoverCard(i, j + 2));
 					//door_card.cards.push_back(recoverCard(i, j));
 					door_group_.push_back(door_card);
 					return true;
@@ -268,8 +268,8 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 					auto door_card = std::make_shared<DoorCards>();
 					door_card->huzi = 3;
 					if (i == 1) door_card->huzi *= 2;
-					door_card->cards.push_back(recoverCard(i, j));
-					door_card->cards.push_back(recoverCard(i, j));
+					door_card->cards.push_back(RecoverCard(i, j));
+					door_card->cards.push_back(RecoverCard(i, j));
 					//door_card.cards.push_back(recoverCard(i, j));
 					door_group_.push_back(door_card);
 					return true;
@@ -292,9 +292,9 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 					auto door_card = std::make_shared<DoorCards>();
 					door_card->huzi = j == 1 ? 3 : 0;
 					if (i == 1) door_card->huzi *= 2;
-					door_card->cards.push_back(recoverCard(i, j));
-					door_card->cards.push_back(recoverCard(i, j + 1));
-					door_card->cards.push_back(recoverCard(i, j + 2));
+					door_card->cards.push_back(RecoverCard(i, j));
+					door_card->cards.push_back(RecoverCard(i, j + 1));
+					door_card->cards.push_back(RecoverCard(i, j + 2));
 					door_group_.push_back(door_card);
 					return true;
 				}
@@ -316,9 +316,9 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 					auto door_card = std::make_shared<DoorCards>();
 					door_card->huzi = 3;
 					if (i == 1) door_card->huzi *= 2;
-					door_card->cards.push_back(recoverCard(i, 2));
-					door_card->cards.push_back(recoverCard(i, 7));
-					door_card->cards.push_back(recoverCard(i, 10));
+					door_card->cards.push_back(RecoverCard(i, 2));
+					door_card->cards.push_back(RecoverCard(i, 7));
+					door_card->cards.push_back(RecoverCard(i, 10));
 					door_group_.push_back(door_card);
 					return true;
 				}
@@ -339,9 +339,9 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 				{
 					auto door_card = std::make_shared<DoorCards>();
 					door_card->huzi = 0;
-					door_card->cards.push_back(recoverCard(0, j));
-					door_card->cards.push_back(recoverCard(1, j));
-					door_card->cards.push_back(recoverCard(1, j));
+					door_card->cards.push_back(RecoverCard(0, j));
+					door_card->cards.push_back(RecoverCard(1, j));
+					door_card->cards.push_back(RecoverCard(1, j));
 					door_group_.push_back(door_card);
 					return true;
 				}
@@ -362,9 +362,9 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 				{
 					auto door_card = std::make_shared<DoorCards>();
 					door_card->huzi = 0;
-					door_card->cards.push_back(recoverCard(0, j));
-					door_card->cards.push_back(recoverCard(0, j));
-					door_card->cards.push_back(recoverCard(1, j));
+					door_card->cards.push_back(RecoverCard(0, j));
+					door_card->cards.push_back(RecoverCard(0, j));
+					door_card->cards.push_back(RecoverCard(1, j));
 					door_group_.push_back(door_card);
 					return true;
 				}
@@ -386,8 +386,8 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 				if (is_hu)
 				{
 					auto door_card = std::make_shared<DoorCards>();
-					door_card->cards.push_back(recoverCard(0, j));
-					door_card->cards.push_back(recoverCard(1, j));
+					door_card->cards.push_back(RecoverCard(0, j));
+					door_card->cards.push_back(RecoverCard(1, j));
 					//door_card.cards.push_back(recoverCard(i, j));
 					door_group_.push_back(door_card);
 					return true;
@@ -490,8 +490,8 @@ bool ZipaiAlgorithm::CheckJiangCanHu(CardGroup cards)
 				if (is_hu)
 				{
 					auto door_card = std::make_shared<DoorCards>();
-					door_card->cards.push_back(recoverCard(i, j));
-					door_card->cards.push_back(recoverCard(i, j));
+					door_card->cards.push_back(RecoverCard(i, j));
+					door_card->cards.push_back(RecoverCard(i, j));
 					door_group_.push_back(door_card);
 					return true;
 				}
@@ -509,7 +509,7 @@ bool ZipaiAlgorithm::CheckJiangCanHu(CardGroup cards)
 				if (is_hu)
 				{
 					auto door_card = std::make_shared<DoorCards>();
-					door_card->cards.push_back(recoverCard(i, j));
+					door_card->cards.push_back(RecoverCard(i, j));
 					door_group_.push_back(door_card);
 					return true;
 				}
@@ -537,11 +537,11 @@ bool ZipaiAlgorithm::CheckCompose433(CardGroup cards)
 				door_card->card_type = KAN_ZI;
 				door_card->huzi = 6;
 				if (i = 1) door_card->huzi *= 2;
-				Card c = recoverCard(i, j);
-				door_card->cards.push_back(recoverCard(i, j));
-				door_card->cards.push_back(recoverCard(i, j));
-				door_card->cards.push_back(recoverCard(i, j));
-				door_card->cards.push_back(recoverCard(i, j));
+				Card c = RecoverCard(i, j);
+				door_card->cards.push_back(RecoverCard(i, j));
+				door_card->cards.push_back(RecoverCard(i, j));
+				door_card->cards.push_back(RecoverCard(i, j));
+				door_card->cards.push_back(RecoverCard(i, j));
 				door_group_.push_back(door_card);
 			}
 		}

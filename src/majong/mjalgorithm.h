@@ -5,8 +5,8 @@
  * @github https://github.com/ysx-cpp
  * @date Oct 08 2020
  */
-#ifndef MJGAME_HU_PAI_ALGORITHM_H
-#define MJGAME_HU_PAI_ALGORITHM_H
+#ifndef MAJONG_MJ_ALGORITHM_H
+#define MAJONG_MJ_ALGORITHM_H
 
 #include <stdint.h>
 #include <memory>
@@ -116,4 +116,4 @@ private:
 
 } //namespace algorithm
 
-#endif //MJGAME_HU_PAI_ALGORITHM_H
+#endif //MAJONG_MJ_ALGORITHM_H

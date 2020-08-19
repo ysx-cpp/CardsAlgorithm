@@ -5,8 +5,8 @@
  * @github https://github.com/ysx-cpp
  * @date Oct 08 2020
  */
-#ifndef PKGAME_POKER_ALGORITHM_H
-#define PKGAME_POKER_ALGORITHM_H
+#ifndef POKER_ALGORITHM_H
+#define POKER_ALGORITHM_H
 
 #include <algorithm>
 #include <vector>
@@ -17,8 +17,8 @@ namespace algorithm {
 struct CardInfo
 {
 	CardInfo(const int & value) :face(value) {}
-	bool operator==(const ICardPtr & card) const { return card->faceId() == face; }
-	bool operator!=(const ICardPtr & card) const { return card->faceId() != face; }
+	bool operator==(const ICardPtr & card) const { return card->FaceId() == face; }
+	bool operator!=(const ICardPtr & card) const { return card->FaceId() != face; }
 	bool operator==(const CardInfo & other) const { return face == other.face; }
 	bool operator!=(const CardInfo & other) const { return face != other.face; }
 	bool operator<(const CardInfo & other) const { return  face < other.face; }
@@ -37,7 +37,7 @@ public:
 	}
 	virtual ~PokerAlgorithm() {}
 
-	void SetLaiZiCard(const ICardPtr & card_ptr) { laizi_card_ = card_ptr; }
+	void set_laizi_card(const ICardPtr & card_ptr) { laizi_card_ = card_ptr; }
 	const ICardPtr laizi_card() const { return laizi_card_; }
 
 private:
@@ -70,4 +70,4 @@ private:
 };
 
 } // algorithm
-#endif // PKGAME_POKER_ALGORITHM_H
+#endif // POKER_ALGORITHM_H
