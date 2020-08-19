@@ -1,3 +1,10 @@
+/*
+ * @file commonalgorithm.h
+ * @author YangSongxi
+ * @mail ysx-cpp@gmail.com
+ * @github https://github.com/ysx-cpp
+ * @date Oct 08 2020
+ */
 #ifndef POKER_COMMON_ALGORITHM_H
 #define POKER_COMMON_ALGORITHM_H
 

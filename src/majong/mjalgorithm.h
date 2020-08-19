@@ -1,3 +1,10 @@
+/*
+ * @file mjalgorithm.h
+ * @author YangSongxi
+ * @mail ysx-cpp@gmail.com
+ * @github https://github.com/ysx-cpp
+ * @date Oct 08 2020
+ */
 #ifndef MJGAME_HU_PAI_ALGORITHM_H
 #define MJGAME_HU_PAI_ALGORITHM_H
 

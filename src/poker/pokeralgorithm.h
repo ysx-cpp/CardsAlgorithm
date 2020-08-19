@@ -1,3 +1,10 @@
+/*
+ * @file pokeralgorithm.h
+ * @author YangSongxi
+ * @mail ysx-cpp@gmail.com
+ * @github https://github.com/ysx-cpp
+ * @date Oct 08 2020
+ */
 #ifndef PKGAME_POKER_ALGORITHM_H
 #define PKGAME_POKER_ALGORITHM_H
 

@@ -1,3 +1,10 @@
+/*
+ * @file mjalgorithm.cpp
+ * @author YangSongxi
+ * @mail ysx-cpp@gmail.com
+ * @github https://github.com/ysx-cpp
+ * @date Oct 08 2020
+ */
 #include "mjalgorithm.h"
 
 namespace algorithm {

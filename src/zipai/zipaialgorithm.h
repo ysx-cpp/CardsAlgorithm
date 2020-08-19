@@ -1,3 +1,10 @@
+/*
+ * @file aipaialgorithm.h
+ * @author YangSongxi
+ * @mail ysx-cpp@gmail.com
+ * @github https://github.com/ysx-cpp
+ * @date Oct 08 2020
+ */
 #ifndef ROBOT_ZP_HU_PAI_ALGO_H
 #define ROBOT_ZP_HU_PAI_ALGO_H
 
