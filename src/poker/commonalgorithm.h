@@ -50,7 +50,7 @@ private:
 	bool IsFourBeltTwo(const std::vector<CardInfo>& cards_info);
 	bool IsFourBeltThree(const std::vector<CardInfo>& cards_info);
 	bool IsBeltCards(const std::vector<CardInfo>& cards_info, const size_t count, const size_t wing_num);
-	bool IsAircraft(const std::vector<CardInfo>& cards_info, const size_t wing_num);
+	bool IsAircraft(const std::vector<CardInfo>& cards_info, const int wing_num);
 	bool IsStraight(const std::vector<CardInfo> & cards_info);
 	bool IsBomb(const std::vector<CardInfo>& cards_info);
 	bool IsKingBomb(const std::vector<CardInfo> & cards_info);

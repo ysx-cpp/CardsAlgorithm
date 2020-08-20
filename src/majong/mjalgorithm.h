@@ -18,8 +18,8 @@ namespace algorithm {
 
 class MjAlgorithm
 {
-	static const uint32_t ROW = MjCard::E_TYPE_COUNT_;
-	static const uint32_t CLOU = MjCard::E_FACE_COUNT_;
+	static const int32_t ROW = MjCard::E_TYPE_COUNT_;
+	static const int32_t CLOU = MjCard::E_FACE_COUNT_;
 
 	using Card = unsigned char;
 	using CardGroup = Card[ROW][CLOU];
@@ -35,7 +35,7 @@ public:
 	bool CheckShiSanYaoHu();
 
 	void SetLaiZiNum(const int num) { laizi_num_ = num; }
-	const int laizi_num() const { return laizi_num_; }
+	int laizi_num() const { return laizi_num_; }
 	void SetLaiCard(const Card card) { laizi_card_ = card; }
 	const Card &laizi_card() const { return laizi_card_; }
 

@@ -94,7 +94,7 @@ bool PokerAlgorithm::FindStraightFlush(const int begin_face, const size_t size, 
 	return false;
 }
 
-bool PokerAlgorithm::FindNonContinuousCards(const int begin_face, const size_t count, const std::vector<CardInfo> & cards_info, std::vector<ICardPtr> &cards)
+bool PokerAlgorithm::FindNonContinuousCards(const int /*begin_face*/, const size_t count, const std::vector<CardInfo> & cards_info, std::vector<ICardPtr> &cards)
 {
 	auto iter_laizi = std::find(cards_info.begin(), cards_info.end(), laizi_card_);
 
@@ -124,7 +124,7 @@ bool PokerAlgorithm::FindNonContinuousCards(const int begin_face, const size_t c
 
 bool PokerAlgorithm::FindContinuousCards(const int begin_face, const size_t count, const size_t size, const std::vector<CardInfo> & cards_info, std::vector<ICardPtr> &cards)
 {
-	int continue_size = 1;
+	size_t continue_size = 1;
 	if (cards_info.front().cards.size() >= count)
 	{
 		auto it = cards_info.cbegin();
@@ -298,7 +298,8 @@ void PokerAlgorithm::CardInfoToPokerGroup(const std::vector<CardInfo> & cards_in
 	{
 		for (auto & iter : it->cards)
 		{
-			poker_group[it->face] += 1;
+			//poker_group[it->face] += 1;原本是这样，为了处理编译警告改成如下
+			poker_group[iter->FaceId()] += 1;
 			poker_group[0] += 1;
 		}
 	}
@@ -331,7 +332,7 @@ void PokerAlgorithm::CardsToCardInfo(const std::vector<ICardPtr> & hand_cards, s
 	}
 }
 
-void PokerAlgorithm::PrintCards(const std::vector<ICardPtr>& cards)
+void PokerAlgorithm::PrintCards(const std::vector<ICardPtr>& /*cards*/)
 {
 
 }

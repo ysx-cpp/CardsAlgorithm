@@ -444,7 +444,7 @@ bool CommonAlgorithm::IsBeltCards(const std::vector<CardInfo>& cards_info, const
 	return num % count == wing_num;
 }
 
-bool CommonAlgorithm::IsAircraft(const std::vector<CardInfo>& cards_info, const size_t wing_num)
+bool CommonAlgorithm::IsAircraft(const std::vector<CardInfo>& cards_info, const int wing_num)
 {
 	int card_count = GetCardsCount(cards_info);
 	int size = 2;
