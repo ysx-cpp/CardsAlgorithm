@@ -169,14 +169,14 @@ bool PokerAlgorithm::FindLaiZiContinuousCards(const int begin_face, const size_t
 	if (iter_laizi == cards_info.end())
 		return false;
 
-	if (CPkCard::E_FACE_TWO - begin_face < size)
+	if (static_cast<size_t>(CPkCard::E_FACE_TWO - begin_face) < size)
 		return false;
 
 	std::map<int, size_t> card_slot;
-	for (int first = begin_face; first < CPkCard::E_FACE_TWO - size; ++first)
+	for (int first = begin_face; static_cast<size_t>(first) < CPkCard::E_FACE_TWO - size; ++first)
 	{
 		card_slot.emplace(first, count * size);
-		for (int k = first; k < first + size; ++k)
+		for (size_t k = first; k < first + size; ++k)
 		{
 			auto it = find(cards_info.begin(), cards_info.end(), k);
 			if (it != cards_info.end())
@@ -188,7 +188,7 @@ bool PokerAlgorithm::FindLaiZiContinuousCards(const int begin_face, const size_t
 	}
 
 	auto iter_eligible = std::find_if(card_slot.rbegin(), card_slot.rend(), [iter_laizi](const std::pair<int, int> &item){
-		return item.second <= iter_laizi->cards.size();
+		return static_cast<size_t>(item.second) <= iter_laizi->cards.size();
 	});
 
 	if (iter_eligible == card_slot.rend())
@@ -200,7 +200,7 @@ bool PokerAlgorithm::FindLaiZiContinuousCards(const int begin_face, const size_t
 	for (std::vector<CardInfo>::const_iterator it = cards_info.cbegin(); it != cards_info.cend(); ++it)
 	{
 		if (*it == laizi_card_) continue;
-		if (it->face >= first_face && it->face < first_face + size)
+		if (it->face >= first_face && static_cast<size_t>(it->face) < first_face + size)
 		{
 			int push_num = std::min(it->cards.size(), count);
 			cards.insert(cards.end(), it->cards.begin(), it->cards.begin() + push_num);
@@ -259,13 +259,13 @@ bool PokerAlgorithm::IsLaiZiContinuousCards(const std::vector<CardInfo> & cards_
 
 	std::map<int, size_t> card_slot;
 	int begin_face = cards_info.front().face;
-	if (begin_face > CPkCard::E_FACE_TWO - size)
+	if (static_cast<size_t>(begin_face) > CPkCard::E_FACE_TWO - size)
 		begin_face = CPkCard::E_FACE_TWO - size;
 
-	for (int first = begin_face; first <= CPkCard::E_FACE_TWO - size; ++first)
+	for (int first = begin_face; static_cast<size_t>(first) <= CPkCard::E_FACE_TWO - size; ++first)
 	{
 		card_slot.emplace(first, count * size);
-		for (int k = first; k < first + size; ++k)
+		for (int k = first; static_cast<size_t>(k) < first + size; ++k)
 		{
 			if (k == laizi_card_->FaceId()) continue;
 			auto it = find_if(cards_info.begin(), cards_info.end(), [k](const CardInfo & item){
@@ -280,7 +280,7 @@ bool PokerAlgorithm::IsLaiZiContinuousCards(const std::vector<CardInfo> & cards_
 	}
 
 	auto iter_eligible = std::find_if(card_slot.rbegin(), card_slot.rend(), [iter_laizi](const std::pair<int, int> &item){
-		return item.second <= iter_laizi->cards.size();
+		return static_cast<size_t>(item.second) <= iter_laizi->cards.size();
 	});
 
 	return iter_eligible == card_slot.rend();
