@@ -6,6 +6,7 @@
  * @date Oct 08 2020
  */
 #include "mjalgorithm.h"
+#include <memory.h>
 
 namespace algorithm {
 

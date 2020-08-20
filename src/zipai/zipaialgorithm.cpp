@@ -6,6 +6,7 @@
  * @date Oct 08 2020
  */
 #include "zipaialgorithm.h"
+#include <memory.h>
 
 namespace algorithm {
 

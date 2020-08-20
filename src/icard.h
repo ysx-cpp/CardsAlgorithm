@@ -1,7 +1,9 @@
-#ifndef ICARD_H
-#define ICARD_H
+#ifndef COMMON_ICARD_H
+#define COMMON_ICARD_H
 #include <memory>
 #include <string>
+
+namespace algorithm {
 
 class ICard
 {
@@ -17,5 +19,6 @@ public:
 
 using ICardPtr = std::shared_ptr<ICard>;
 
-#endif // ICARD_H
+} // namespace algorithm
+#endif // COMMON_ICARD_H
 
