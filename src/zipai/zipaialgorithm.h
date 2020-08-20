@@ -18,7 +18,7 @@ static const int32_t ROW = 2;
 static const int32_t CLOU = 11;
 using Card = unsigned char;//color=0x10 value=0x01 一个字节8个位，前4位0x10表示牌花色，后4位0x01表示牌的值
 using CardGroup = Card[ROW][CLOU];
-static CardGroup ZIPAI_CARD_GROUP = { {0} };
+//static CardGroup ZIPAI_CARD_GROUP = { {0} };
 
 class ZipaiAlgorithm
 {

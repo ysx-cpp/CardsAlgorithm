@@ -537,12 +537,12 @@ bool ZipaiAlgorithm::CheckCompose433(CardGroup cards)
 				auto door_card = std::make_shared<DoorCards>();
 				door_card->card_type = KAN_ZI;
 				door_card->huzi = 6;
-				if (i = 1) door_card->huzi *= 2;
+				if (i == 1) door_card->huzi *= 2;
 				Card c = RecoverCard(i, j);
-				door_card->cards.push_back(RecoverCard(i, j));
-				door_card->cards.push_back(RecoverCard(i, j));
-				door_card->cards.push_back(RecoverCard(i, j));
-				door_card->cards.push_back(RecoverCard(i, j));
+				door_card->cards.push_back(c);
+				door_card->cards.push_back(c);
+				door_card->cards.push_back(c);
+				door_card->cards.push_back(c);
 				door_group_.push_back(door_card);
 			}
 		}
