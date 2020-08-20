@@ -30,7 +30,7 @@ public:
 	void OutPutDoorCards(std::vector<Card> &hand_cards);
 
 	void set_laizi_num(const int num) { laizi_num_ = num; }
-	const int laizi_num() const { return laizi_num_; }
+	int laizi_num() const { return laizi_num_; }
 
 private:
 	void InputHandCard(const std::vector<Card> &hand_cards, CardGroup cards);
@@ -63,13 +63,13 @@ private:
 	}
 
 	//1个小字2个大字
-	bool CheckComposeOneSmallTwoBig(const CardGroup cards, const int &type, const int &value) const
+	bool CheckComposeOneSmallTwoBig(const CardGroup cards, const int &/*type*/, const int &value) const
 	{
 		return cards[0][value] >= 1 && cards[1][value] >= 2;
 	}
 
 	//2个小字1个大字
-	bool CheckComposeTowSmallOneBig(const CardGroup cards, const int &type, const int &value) const
+	bool CheckComposeTowSmallOneBig(const CardGroup cards, const int &/*type*/, const int &value) const
 	{
 		return cards[0][value] >= 2 && cards[1][value] >= 1;
 	}
@@ -118,7 +118,7 @@ private:
 	}
 
 	//一壹%, 二贰%， 三叁%, ... 绞牌
-	bool CheckComposeLaiZiJiaoPai(const CardGroup cards, const int &type, const int &value) const
+	bool CheckComposeLaiZiJiaoPai(const CardGroup cards, const int &/*type*/, const int &value) const
 	{
 		if (laizi_num() == 0) return false;
 		return cards[0][value] > 0 && cards[1][value] > 0;
@@ -126,37 +126,37 @@ private:
 
 	/************************************2癞子************************************/
 	//2%% 2710
-	bool CheckCompose2710TowLaiziAnd2(const CardGroup cards, const int &type, const int &value) const
+	bool CheckCompose2710TowLaiziAnd2(const CardGroup /*cards*/, const int &/*type*/, const int &value) const
 	{
 		return laizi_num() >= 2 && value == 2;
 	}
 
 	//%7% 2710
-	bool CheckCompose2710TowLaiziAnd7(const CardGroup cards, const int &type, const int &value) const
+	bool CheckCompose2710TowLaiziAnd7(const CardGroup /*cards*/, const int &/*type*/, const int &value) const
 	{
 		return laizi_num() >= 2 && value == 7;
 	}
 
 	//%%10 2710
-	bool CheckCompose2710TowLaiziAnd10(const CardGroup cards, const int &type, const int &value) const
+	bool CheckCompose2710TowLaiziAnd10(const CardGroup /*cards*/, const int &/*type*/, const int &value) const
 	{
 		return laizi_num() >= 2 && value == 10;
 	}
 
 	//1%% 123
-	bool CheckCompose123TowLaiziAnd1(const CardGroup cards, const int &type, const int &value) const
+	bool CheckCompose123TowLaiziAnd1(const CardGroup /*cards*/, const int &/*type*/, const int &value) const
 	{
 		return laizi_num() >= 2 && value == 1;
 	}
 
 	//%2% 123 
-	bool CheckCompose123TowLaiziAnd2(const CardGroup cards, const int &type, const int &value) const
+	bool CheckCompose123TowLaiziAnd2(const CardGroup /*cards*/, const int &/*type*/, const int &value) const
 	{
 		return laizi_num() >= 2 && value == 2;
 	}
 
 	//%%3 123
-	bool CheckCompose123TowLaiziAnd3(const CardGroup cards, const int &type, const int &value) const
+	bool CheckCompose123TowLaiziAnd3(const CardGroup /*cards*/, const int &/*type*/, const int &value) const
 	{
 		return laizi_num() >= 2 && value == 3;
 	}
