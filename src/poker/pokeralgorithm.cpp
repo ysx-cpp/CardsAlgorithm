@@ -310,7 +310,6 @@ void PokerAlgorithm::CardsToCardInfo(const std::vector<ICardPtr> & hand_cards, s
 	{	
 		auto iter = std::find(hand_cards_info.begin(), hand_cards_info.end(), *it);
 		int face = (*it)->FaceId();
-		int type = (*it)->TypeId();
 		if (iter == hand_cards_info.end())
 		{
 			CardInfo cardInfo(face);
