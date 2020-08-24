@@ -9,12 +9,12 @@ class ICard
 {
 public:
 	virtual ~ICard() {}
-	virtual int IndexId() const = 0;
-	virtual int TypeId() const = 0;
-	virtual int FaceId() const = 0;
-	virtual int ClrId() const = 0;
-	virtual bool IsEmpty() const = 0;
-	virtual std::string Name() const = 0;
+	virtual int index() const = 0;
+	virtual int type() const = 0;
+	virtual int face() const = 0;
+	virtual int color() const = 0;
+	virtual bool empty() const = 0;
+	virtual std::string name() const = 0;
 };
 
 using ICardPtr = std::shared_ptr<ICard>;

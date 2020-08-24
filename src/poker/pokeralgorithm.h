@@ -17,8 +17,8 @@ namespace algorithm {
 struct CardInfo
 {
 	CardInfo(const int & value) :face(value) {}
-	bool operator==(const ICardPtr & card) const { return card->FaceId() == face; }
-	bool operator!=(const ICardPtr & card) const { return card->FaceId() != face; }
+	bool operator==(const ICardPtr & card) const { return card->face() == face; }
+	bool operator!=(const ICardPtr & card) const { return card->face() != face; }
 	bool operator==(const CardInfo & other) const { return face == other.face; }
 	bool operator!=(const CardInfo & other) const { return face != other.face; }
 	bool operator<(const CardInfo & other) const { return  face < other.face; }

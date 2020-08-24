@@ -9,7 +9,7 @@
 
 namespace algorithm {
 
-std::string CPkCard::Name() const
+std::string CPkCard::name() const
 {
 	std::string name(std::to_string(index_));
 	switch (type_)

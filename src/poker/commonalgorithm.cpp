@@ -19,7 +19,7 @@ int CommonAlgorithm::FindCardType(const std::vector<ICardPtr>& hand_cards, const
 	case E_PK_OCT_LEAFLET:
 	{
 		auto max_card = poker_algo_.FindMaxCard(cards_info);
-		if (max_card->FaceId() > play_info.card_value)
+		if (max_card->face() > play_info.card_value)
 		{
 			cards.push_back(max_card);
 			return E_PK_OCT_LEAFLET;
@@ -104,7 +104,7 @@ int CommonAlgorithm::DiscernCardType(const std::vector<ICardPtr>& play_cards, Pl
 	poker_algo_.CardsToCardInfo(play_cards, cards_info);
 
 	for (auto &iter : play_cards)
-		play_info.vec_play_cards.push_back(iter->IndexId());
+		play_info.vec_play_cards.push_back(iter->index());
 
 	switch (play_cards.size())
 	{
@@ -249,7 +249,7 @@ bool CommonAlgorithm::FindThreeBeltPair(const int begin_face, const std::vector<
 		for (auto &iter : it.cards)
 		{
 			auto iter_exist = std::find_if(cards.begin(), cards.end(), [iter](const ICardPtr & item){
-				return item->IndexId() == iter->IndexId();
+				return item->index() == iter->index();
 			});
 
 			if (iter_exist == cards.end())
@@ -357,7 +357,7 @@ bool CommonAlgorithm::AppendWing(const int wing_num, const std::vector<CardInfo>
 		for (auto &iter : it.cards)
 		{
 			auto iter_exist = std::find_if(cards.begin(), cards.end(), [iter](const ICardPtr & item){
-				return item->IndexId() == iter->IndexId();
+				return item->index() == iter->index();
 			});
 
 			if (iter_exist == cards.end())
@@ -373,7 +373,7 @@ bool CommonAlgorithm::AppendWing(const int wing_num, const std::vector<CardInfo>
 	for (auto &iter : laizi_cards)
 	{
 		auto iter_exist = std::find_if(cards.begin(), cards.end(), [iter](const ICardPtr & item){
-			return item->IndexId() == iter->IndexId();
+			return item->index() == iter->index();
 		});
 
 		if (iter_exist == cards.end())

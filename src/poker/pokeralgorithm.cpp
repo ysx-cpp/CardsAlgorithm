@@ -35,7 +35,7 @@ bool PokerAlgorithm::FindSameColor(const size_t size, const std::vector<CardInfo
 		{
 			for (auto &iter : it->cards)
 			{
-				if (type != iter->FaceId()) continue;
+				if (type != iter->face()) continue;
 				cards.push_back(iter);
 				if (cards.size() == size)
 				{
@@ -59,7 +59,7 @@ bool PokerAlgorithm::FindStraightFlush(const int begin_face, const size_t size, 
 			if (it->face < begin_face) continue;
 
 			auto iter = std::find_if((it - 1)->cards.begin(), (it - 1)->cards.end(), [type](const ICardPtr & item){
-				return item->TypeId() == type;
+				return item->type() == type;
 			});
 			if (iter == it->cards.end())
 			{
@@ -267,7 +267,7 @@ bool PokerAlgorithm::IsLaiZiContinuousCards(const std::vector<CardInfo> & cards_
 		card_slot.emplace(first, count * size);
 		for (int k = first; static_cast<size_t>(k) < first + size; ++k)
 		{
-			if (k == laizi_card_->FaceId()) continue;
+			if (k == laizi_card_->face()) continue;
 			auto it = find_if(cards_info.begin(), cards_info.end(), [k](const CardInfo & item){
 				return item.face == k;
 			});
@@ -299,7 +299,7 @@ void PokerAlgorithm::CardInfoToPokerGroup(const std::vector<CardInfo> & cards_in
 		for (auto & iter : it->cards)
 		{
 			//poker_group[it->face] += 1;原本是这样，为了处理编译警告改成如下
-			poker_group[iter->FaceId()] += 1;
+			poker_group[iter->face()] += 1;
 			poker_group[0] += 1;
 		}
 	}
@@ -310,7 +310,7 @@ void PokerAlgorithm::CardsToCardInfo(const std::vector<ICardPtr> & hand_cards, s
 	for (auto it = hand_cards.begin(); it != hand_cards.end(); ++it)
 	{	
 		auto iter = std::find(hand_cards_info.begin(), hand_cards_info.end(), *it);
-		int face = (*it)->FaceId();
+		int face = (*it)->face();
 		if (iter == hand_cards_info.end())
 		{
 			CardInfo cardInfo(face);
@@ -344,15 +344,15 @@ bool PokerAlgorithm::CompareCardType(const int & type1, const int & type2)
 
 bool PokerAlgorithm::CompareCardValue(const ICardPtr & c1, const ICardPtr & c2)
 {
-	if (c1->FaceId() == c2->FaceId())
-		return c1->TypeId() < c2->TypeId();
+	if (c1->face() == c2->face())
+		return c1->type() < c2->type();
 
-	return c1->FaceId() < c2->FaceId();
+	return c1->face() < c2->face();
 }
 
 bool PokerAlgorithm::CompareCardIndex(const ICardPtr & c1, const ICardPtr & c2)
 {
-	return c1->IndexId() < c2->IndexId();
+	return c1->index() < c2->index();
 }
 
 } //namespace algorithm

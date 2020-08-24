@@ -325,7 +325,7 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 				}
 			}
 
-			if (CheckComposeOneSmallTwoBig(cards, i, j))
+			if (CheckComposeOneSmallTwoBig(cards, j))
 			{
 				cards[0][j] -= 1;
 				cards[0][0] -= 1;
@@ -348,7 +348,7 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 				}
 			}
 
-			if (CheckComposeTowSmallOneBig(cards, i, j))
+			if (CheckComposeTowSmallOneBig(cards, j))
 			{
 				cards[0][j] -= 2;
 				cards[0][0] -= 2;
@@ -371,7 +371,7 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 				}
 			}
 
-			if (CheckComposeLaiZiJiaoPai(cards, i, j))
+			if (CheckComposeLaiZiJiaoPai(cards, j))
 			{
 				cards[0][j] -= 1;
 				cards[1][j] -= 1;
@@ -397,7 +397,7 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 
 			/************************************2个癞子组合************************************/
 
-			if (CheckCompose2710TowLaiziAnd2(cards, i, j))
+			if (CheckCompose2710TowLaiziAnd2(j))
 			{
 				cards[i][2] -= 1;
 				cards[i][0] -= 1;
@@ -412,7 +412,7 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 				}
 			}
 
-			if (CheckCompose2710TowLaiziAnd7(cards, i, j))
+			if (CheckCompose2710TowLaiziAnd7(j))
 			{
 				cards[i][7] -= 1;
 				cards[i][0] -= 1;
@@ -427,7 +427,7 @@ bool ZipaiAlgorithm::CheckCompose333(CardGroup cards)
 				}
 			}
 
-			if (CheckCompose2710TowLaiziAnd10(cards, i, j))
+			if (CheckCompose2710TowLaiziAnd10(j))
 			{
 				cards[i][10] -= 1;
 				cards[i][0] -= 1;

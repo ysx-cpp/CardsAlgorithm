@@ -56,15 +56,15 @@ public:
 	{
 	}
 	virtual ~CPkCard() {}
-	virtual int IndexId() const { return index_; }
-	virtual int TypeId() const { return type_; }
-	virtual int FaceId() const { return face_; }
-	virtual int ClrId() const { return 0; }
-	virtual bool IsEmpty() const { return false; }
-	virtual std::string Name() const;
+	virtual int index() const { return index_; }
+	virtual int type() const { return type_; }
+	virtual int face() const { return face_; }
+	virtual int color() const { return 0; }
+	virtual bool empty() const { return false; }
+	virtual std::string name() const;
 	
 	//bool operator==(const ICardPtr c) const { return index_ == c->indexId(); }
-	bool operator==(const ICardPtr c) const { return face_ == c->FaceId(); }
+	bool operator==(const ICardPtr c) const { return face_ == c->face(); }
 
 private:
 	EType   type_;
