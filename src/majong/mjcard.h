@@ -39,8 +39,6 @@ public:
 		E_TYPE_COUNT_
 	};
 
-	using Card = uint8_t;
-
 public:
 	MjCard(EType type, EFace face, int index)
 		: type_(type),

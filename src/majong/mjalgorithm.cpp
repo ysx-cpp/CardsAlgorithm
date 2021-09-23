@@ -36,23 +36,28 @@ void MjAlgorithm::InputHandCard(const std::vector<ICardPtr> &hand_cards)
 	}
 }
 
-//void MjAlgorithm::OutPutDoorCards(std::vector<DoorGroupPtr> &door_card_group)
-//{
-//	for (auto &it : door_group_)
-//	{
-//		DoorGroupPtr door_ptr = std::make_shared<DoorGroup>();
-//		for (auto &iter : it->cards)
-//		{
-//			if (hand_cards_info_.find(iter) != hand_cards_info_.end() && !hand_cards_info_[iter].empty())
-//			{
-//				int index = hand_cards_info_[iter].back();
-//				door_ptr->m_vSelfCard.push_back(index);
-//				hand_cards_info_[iter].pop_back();
-//			}		
-//		}
-//		door_card_group.push_back(door_ptr);
-//	}
-//}
+void MjAlgorithm::OutPutDoorCards(std::vector<OutDoorCards> &vec_door_cards) const
+{
+	for (auto &it : door_group_)
+	{
+		OutDoorCards door;
+		for (auto &iter : it->cards)
+		{
+			// if (hand_cards_info_.find(iter) != hand_cards_info_.end() && !hand_cards_info_[iter].empty())
+			// {
+			// 	int index = hand_cards_info_[iter].back();
+			// 	door_ptr->m_vSelfCard.push_back(index);
+			// 	hand_cards_info_[iter].pop_back();
+			// }
+
+			int type = this->type(iter);
+			uint16_t c = this->value(iter) << type;
+			door.hand_cards.push_back(c);
+		}
+		door.card_type = it->card_type;
+		vec_door_cards.push_back(door);
+	}
+}
 
 bool MjAlgorithm::CheckPingHu()
 {
@@ -176,6 +181,7 @@ bool MjAlgorithm::CheckCompose333(CardGroup cards)
 				if (is_hu)
 				{
 					auto door_card = std::make_shared<DoorCards>();
+					door_card->card_type = DoorCardType::SHUN_ZI;
 					door_card->cards.push_back(recoverCard(i, j));
 					door_card->cards.push_back(recoverCard(i, j + 1));
 					door_card->cards.push_back(recoverCard(i, j + 2));
@@ -306,14 +312,14 @@ bool MjAlgorithm::QiDuiHu(CardGroup cards)
 		for (unsigned j = 1; j < CLOU; j++)
 		{
 			if (cards[i][j] == 0) continue;
-			if (cards[i][j] & 1) //ÆæÊý²»¿ÉÄÜÓÐÆß¶Ô
+			if (cards[i][j] & 1) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½
 			{
 				single_cnt++;
 			}
 		}
 	}
-	//1.ºìÖÐ+ÊÖÅÆ²»µÈÓÚ14ÕÅÅÆ¼´²»ÄÜºúÆß¶Ô
-	//2.µ¥ÕÅÅÆÊý¾Ý²»µÈÓÚºìÖÐÊýÁ¿Ôò²»ÄÜºúÆß¶Ô
+	//1.ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½ï¿½ï¿½14ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½Üºï¿½ï¿½ß¶ï¿½
+	//2.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üºï¿½ï¿½ß¶ï¿½
 	if ((all_card + laizi_num_ != 14) || single_cnt != laizi_num_)
 	{
 		return false;
@@ -330,7 +336,7 @@ bool MjAlgorithm::ShiSanYaoHu(CardGroup cards)
 		if (cards[i][0] == 0) continue;
 		for (int j = 1; j < CLOU; ++j)
 		{
-			if (i < 3 && j != 1 && j != 9) //Íò Í² Ìõ
+			if (i < 3 && j != 1 && j != 9) //ï¿½ï¿½ Í² ï¿½ï¿½
 			{
 				return false;
 			}

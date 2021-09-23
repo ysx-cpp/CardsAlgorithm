@@ -16,12 +16,25 @@
 
 namespace algorithm {
 
+enum class DoorCardType
+{
+	INVALID = -1, //无效类型 
+	SHUN_ZI, //顺子
+	KE_ZI, //刻子
+};
+
+struct OutDoorCards
+{
+	DoorCardType card_type = DoorCardType::INVALID;
+	std::vector<uint16_t> hand_cards;
+};
+
 class MjAlgorithm
 {
 	static const int32_t ROW = MjCard::E_TYPE_COUNT_;
 	static const int32_t CLOU = MjCard::E_FACE_COUNT_;
 
-	using Card = unsigned char;
+	using Card = uint8_t;
 	using CardGroup = Card[ROW][CLOU];
 
 public:
@@ -29,7 +42,7 @@ public:
 	~MjAlgorithm();
 
 	void InputHandCard(const std::vector<ICardPtr> &hand_cards);
-	//void OutPutDoorCards(std::vector<DoorGroupPtr> &hand_cards);
+	void OutPutDoorCards(std::vector<OutDoorCards> &vec_door_cards) const;
 	bool CheckPingHu();
 	bool CheckQiDuiHu();
 	bool CheckShiSanYaoHu();
@@ -101,13 +114,13 @@ public:
 	}
 
 private:
-	int laizi_num_;
-	Card laizi_card_;
+	int laizi_num_ = 0;
+	Card laizi_card_ = 0;
 	CardGroup card_group_;
 
 	struct DoorCards
 	{
-		int card_type = -1;
+		DoorCardType card_type = DoorCardType::INVALID;
 		std::vector<Card> cards;
 	};
 	std::vector<std::shared_ptr<DoorCards>> door_group_;
