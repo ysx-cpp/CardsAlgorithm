@@ -36,6 +36,7 @@ public:
 		E_SLIVER_TYPE,		//条
 		E_WIND_TYPE,		//风
 		E_WORD_TYPE,		//字
+		E_FLOWER_TYPE,		//花
 		E_TYPE_COUNT_
 	};
 

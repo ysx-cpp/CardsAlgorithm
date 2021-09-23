@@ -52,7 +52,7 @@ void MjAlgorithm::OutPutDoorCards(std::vector<OutDoorCards> &vec_door_cards) con
 
 			int type = this->type(iter);
 			uint16_t c = this->value(iter) << type;
-			door.hand_cards.push_back(c);
+			door.cards.push_back(c);
 		}
 		door.card_type = it->card_type;
 		vec_door_cards.push_back(door);
@@ -98,6 +98,7 @@ bool MjAlgorithm::CheckJiangCanHu(CardGroup cards)
 				if (is_hu)
 				{
 					auto door_card = std::make_shared<DoorCards>();
+					door_card->card_type = DoorCardType::JIANG;
 					door_card->cards.push_back(recoverCard(i, j));
 					door_card->cards.push_back(recoverCard(i, j));
 					door_group_.push_back(door_card);
@@ -117,6 +118,7 @@ bool MjAlgorithm::CheckJiangCanHu(CardGroup cards)
 				if (is_hu)
 				{
 					auto door_card = std::make_shared<DoorCards>();
+					door_card->card_type = DoorCardType::JIANG;
 					door_card->cards.push_back(recoverCard(i, j));
 					door_card->cards.push_back(recoverCard(i, j));
 					door_group_.push_back(door_card);
@@ -139,6 +141,7 @@ bool MjAlgorithm::CheckLaiZiJiangHu(CardGroup cards)
 	if (is_hu)
 	{
 		auto door_card = std::make_shared<DoorCards>();
+		door_card->card_type = DoorCardType::JIANG;
 		door_card->cards.push_back(laizi_card_);
 		door_card->cards.push_back(laizi_card_);
 		door_group_.push_back(door_card);
@@ -200,6 +203,7 @@ bool MjAlgorithm::CheckCompose333(CardGroup cards)
 				if (is_hu)
 				{
 					auto door_card = std::make_shared<DoorCards>();
+					door_card->card_type = DoorCardType::KE_ZI;
 					door_card->cards.push_back(recoverCard(i, j));
 					door_card->cards.push_back(recoverCard(i, j));
 					door_card->cards.push_back(recoverCard(i, j));
@@ -222,6 +226,7 @@ bool MjAlgorithm::CheckCompose333(CardGroup cards)
 				if (is_hu)
 				{
 					auto door_card = std::make_shared<DoorCards>();
+					door_card->card_type = DoorCardType::SHUN_ZI;
 					door_card->cards.push_back(recoverCard(i, j));
 					door_card->cards.push_back(recoverCard(i, j + 1));
 					door_card->cards.push_back(laizi_card_);
@@ -242,6 +247,7 @@ bool MjAlgorithm::CheckCompose333(CardGroup cards)
 				if (is_hu)
 				{
 					auto door_card = std::make_shared<DoorCards>();
+					door_card->card_type = DoorCardType::KE_ZI;
 					door_card->cards.push_back(recoverCard(i, j));
 					door_card->cards.push_back(recoverCard(i, j));
 					door_card->cards.push_back(laizi_card_);
@@ -264,6 +270,7 @@ bool MjAlgorithm::CheckCompose333(CardGroup cards)
 				if (is_hu)
 				{
 					auto door_card = std::make_shared<DoorCards>();
+					door_card->card_type = DoorCardType::SHUN_ZI;
 					door_card->cards.push_back(recoverCard(i, j));
 					door_card->cards.push_back(recoverCard(i, j + 2));
 					door_card->cards.push_back(laizi_card_);
@@ -284,6 +291,7 @@ bool MjAlgorithm::CheckCompose333(CardGroup cards)
 				if (is_hu)
 				{
 					auto door_card = std::make_shared<DoorCards>();
+					door_card->card_type = DoorCardType::KE_ZI;
 					door_card->cards.push_back(recoverCard(i, j));
 					door_card->cards.push_back(laizi_card_);
 					door_card->cards.push_back(laizi_card_);

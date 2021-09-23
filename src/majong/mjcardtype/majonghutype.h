@@ -45,7 +45,7 @@ public:
     // 四杠
     bool SiGang(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 七连对
-    bool QingLianDui(const std::vector<OutDoorCards> &vec_door_cards) const;
+    bool QiLianDui(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 百万石
     bool BaiWanShi(const std::vector<OutDoorCards> &vec_door_cards) const;
     
@@ -65,7 +65,7 @@ public:
     // 一色四节高
     bool YiSeSiJieGao(const std::vector<OutDoorCards> &vec_door_cards) const;
 
-    /**************48番*****************/
+    /**************32番*****************/
     // 一色四步高
     bool YiSeSiBuGao(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 三杠
@@ -73,6 +73,16 @@ public:
     // 混幺九
     bool HunYao9(const std::vector<OutDoorCards> &vec_door_cards) const;
     
+    /**************24番*****************/
+    // 七对
+    bool QiDui(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 清一色
+    bool QingYiSe(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 一色三同花
+    bool YiSeSanTongShun(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 一色三节高
+    bool YiSeSanJieGao(const std::vector<OutDoorCards> &vec_door_cards) const;
+
 private:
     uint16_t Wan(Card c) const {return c & 0x000F;}
     uint16_t Feng(Card c) const {return c & 0x00F0;}
@@ -83,6 +93,9 @@ private:
     bool IsFeng(Card c) const {return Feng(c) != 0;}
     bool IsZi(Card c) const {return Zi(c) != 0;}
     bool IsHua(Card c) const {return Hua(c) != 0;}
+
+    MjCard::EType Type(Card c) const;
+    uint16_t Value(Card c) const;
 
 private:
     MjAlgorithm algorithm_;

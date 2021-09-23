@@ -19,14 +19,17 @@ namespace algorithm {
 enum class DoorCardType
 {
 	INVALID = -1, //无效类型 
+	JIANG,	//将牌
 	SHUN_ZI, //顺子
 	KE_ZI, //刻子
+	PENG,//碰
+	GANG, //杠
 };
 
 struct OutDoorCards
 {
 	DoorCardType card_type = DoorCardType::INVALID;
-	std::vector<uint16_t> hand_cards;
+	std::vector<uint16_t> cards;
 };
 
 class MjAlgorithm
