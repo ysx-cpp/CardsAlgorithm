@@ -250,7 +250,40 @@ bool MajongHuType::YiSeSiBuGao(const std::vector<OutDoorCards> &vec_door_cards) 
     if (!QingYiSe(vec_door_cards))
         return false;
 
-    return false;    
+    auto vec_copy = vec_door_cards;
+    for (auto &it : vec_copy)
+    {
+        std::sort(it.cards.begin(), it.cards.end());
+    }
+
+    std::sort(vec_copy.begin(), vec_copy.end(), [](const OutDoorCards &item1, const OutDoorCards &item2){
+        return item1.cards.front() < item2.cards.front();
+    });
+
+    int count = 1;
+    for (auto it = vec_copy.begin() + 1; it != vec_copy.end(); ++it)
+    {
+        auto prev = it - 1;
+        auto c1 = prev->cards.front();
+        auto c2 = it->cards.front();
+        if (c1 + 1 != c2)
+            count++;
+    }
+
+    if (count == 4)
+        return true;
+
+    count = 1;
+    for (auto it = vec_copy.begin() + 1; it != vec_copy.end(); ++it)
+    {
+        auto prev = it - 1;
+        auto c1 = prev->cards.front();
+        auto c2 = it->cards.front();
+        if (c1 + 2 != c2)
+            count++;
+    }    
+
+    return count == 4;    
 }
 
 // 三杠
