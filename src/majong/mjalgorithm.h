@@ -45,6 +45,7 @@ public:
 	~MjAlgorithm();
 
 	void InputHandCard(const std::vector<ICardPtr> &hand_cards);
+	void InputHandCard(const std::vector<uint16_t> &hand_cards);
 	void OutPutDoorCards(std::vector<OutDoorCards> &vec_door_cards) const;
 	bool CheckPingHu();
 	bool CheckQiDuiHu();

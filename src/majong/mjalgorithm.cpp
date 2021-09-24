@@ -7,6 +7,7 @@
  */
 #include "mjalgorithm.h"
 #include <memory.h>
+#include <assert.h>
 
 namespace algorithm {
 
@@ -34,6 +35,42 @@ void MjAlgorithm::InputHandCard(const std::vector<ICardPtr> &hand_cards)
 		auto c = recoverCard(iter->type(), iter->face());
 		hand_cards_info_[c].push_back(iter->index());
 	}
+}
+
+void MjAlgorithm::InputHandCard(const std::vector<uint16_t> &hand_cards)
+{
+	std::vector<ICardPtr> cards;
+	for (auto &it : hand_cards)
+	{
+		MjCard::EType type = MjCard::E_TYPE_COUNT_;
+		MjCard::EFace face = MjCard::E_FACE_COUNT_;
+		if (it & 0x000f)
+		{
+			type = MjCard::E_MYRIAD_TYPE;
+			face = static_cast<MjCard::EFace>(it & 0x000f);
+		}
+		else if (it & 0x00f0)
+		{
+			type = MjCard::E_WIND_TYPE;
+			face = static_cast<MjCard::EFace>(it & 0x00f0);
+		}
+		else if (it & 0x0f00)
+		{
+			type = MjCard::E_WORD_TYPE;
+			face = static_cast<MjCard::EFace>(it & 0x0f00);
+		}	
+		else if (it & 0xf000)
+		{
+			type = MjCard::E_FLOWER_TYPE;
+			face = static_cast<MjCard::EFace>(it & 0xf000);
+		}
+		else
+			assert(false);
+
+		ICardPtr mjc = std::make_shared<MjCard>(type, face, 0);
+		cards.push_back(mjc);
+	}
+	InputHandCard(cards);
 }
 
 void MjAlgorithm::OutPutDoorCards(std::vector<OutDoorCards> &vec_door_cards) const

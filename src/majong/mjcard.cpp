@@ -9,24 +9,28 @@
 
 namespace algorithm {
 
-int MjCard::IndexId() const
+int MjCard::index() const
 {
 	return index_;
 }
 
-int MjCard::TypeId() const
+int MjCard::type() const
 {
 	return type_;
 }
-int MjCard::FaceId() const
+int MjCard::face() const
 {
 	return face_;
 }
-int MjCard::ClrId() const
+int MjCard::color() const
 {
 	return 0;
 }
-std::string MjCard::Name() const
+bool MjCard::empty() const
+{ 
+	return false; 
+}
+std::string MjCard::name() const
 {
 	std::string name(std::to_string(face_));
 	switch (type_)

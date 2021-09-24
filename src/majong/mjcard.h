@@ -47,14 +47,13 @@ public:
 		index_(index)
 	{
 	}
-	virtual ~MjCard() {}
-	virtual int IndexId() const;
-	virtual int TypeId() const;
-	virtual int FaceId() const;
-	virtual int ClrId() const;
-	virtual bool IsEmpty() const { return false; };
-	virtual std::string Name() const;
-	
+	~MjCard() override {}
+	int index() const override;
+	int type() const override;
+	int face() const override;
+	int color() const override;
+	bool empty() const override;
+	std::string name() const override;
 
 private:
 	EType   type_;
