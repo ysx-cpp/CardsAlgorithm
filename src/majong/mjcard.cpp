@@ -38,12 +38,12 @@ std::string MjCard::name() const
 	case MjCard::E_MYRIAD_TYPE:
 		name.append("万");
 		break;
-	case MjCard::E_CYLINDER_TYPE:
-		name.append("筒");
-		break;
-	case MjCard::E_SLIVER_TYPE:
-		name.append("条");
-		break;
+	// case MjCard::E_CYLINDER_TYPE:
+	// 	name.append("筒");
+	// 	break;
+	// case MjCard::E_SLIVER_TYPE:
+	// 	name.append("条");
+	// 	break;
 	case MjCard::E_WIND_TYPE:
 	{
 		if (face_ == E_FACE_ONE)

@@ -21,7 +21,7 @@ TEST(MajongHuType, test)
 {
     TestCards hand_cards {
         0x0010, 0x0010, 0x0010, 0x0020, 0x0020, 0x0020,
-        0x0200, 0x0200, 
+        0x0200, 0x0200
     };
 
     algo.InputHandCard(hand_cards);

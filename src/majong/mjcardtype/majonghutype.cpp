@@ -5,7 +5,6 @@
 namespace algorithm {
 
 
-
 /**************88番*****************/
 bool MajongHuType::DaSiXi(const std::vector<OutDoorCards> &vec_door_cards) const
 {
@@ -13,8 +12,11 @@ bool MajongHuType::DaSiXi(const std::vector<OutDoorCards> &vec_door_cards) const
     for (auto &it :vec_door_cards)
     {
         auto &c = it.cards.front();
-        if (it.card_type == DoorCardType::KE_ZI && IsFeng(c))
-            count++;
+        if (IsFeng(c))
+        {
+            if (it.card_type == DoorCardType::KE_ZI || it.card_type == DoorCardType::GANG)
+                count++;
+        }
     }
     return count == 4;
 }
@@ -366,12 +368,12 @@ uint16_t MajongHuType::Value(Card c) const
         return c;
     
     if (IsFeng(c))
-        return c >> 1;
+        return c >> 4;
 
     if (IsZi(c))
-        return c >> 2;
+        return c >> 8;
     
-    return c >> 3;
+    return c >> 12;
 }
 
 } //namespace algorithm

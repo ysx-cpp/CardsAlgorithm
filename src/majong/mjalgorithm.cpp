@@ -47,22 +47,26 @@ void MjAlgorithm::InputHandCard(const std::vector<uint16_t> &hand_cards)
 		if (it & 0x000f)
 		{
 			type = MjCard::E_MYRIAD_TYPE;
-			face = static_cast<MjCard::EFace>(it & 0x000f);
+			uint16_t v = it & 0x000f;
+			face = static_cast<MjCard::EFace>(v);
 		}
 		else if (it & 0x00f0)
 		{
 			type = MjCard::E_WIND_TYPE;
-			face = static_cast<MjCard::EFace>(it & 0x00f0);
+			uint16_t v = it & 0x00f0;
+			face = static_cast<MjCard::EFace>(v >> 4);
 		}
 		else if (it & 0x0f00)
 		{
 			type = MjCard::E_WORD_TYPE;
-			face = static_cast<MjCard::EFace>(it & 0x0f00);
+			uint16_t v = it & 0x0f00;
+			face = static_cast<MjCard::EFace>(v >> 8);
 		}	
 		else if (it & 0xf000)
 		{
 			type = MjCard::E_FLOWER_TYPE;
-			face = static_cast<MjCard::EFace>(it & 0xf000);
+			uint16_t v = it & 0xf000;
+			face = static_cast<MjCard::EFace>(v >> 12);
 		}
 		else
 			assert(false);
@@ -189,10 +193,10 @@ bool MjAlgorithm::CheckLaiZiJiangHu(CardGroup cards)
 
 bool MjAlgorithm::CheckCompose333(CardGroup cards)
 {
-	if (laizi_num_ % 3 == 0 && cards[0][0] + cards[1][0] == 0)
+	if (laizi_num() != 0 && laizi_num() % 3 == 0 && cards[0][0] + cards[1][0] == 0)
 	{
 		auto door_card = std::make_shared<DoorCards>();
-		for (int i = 0; i < laizi_num_; ++i)
+		for (int i = 0; i < laizi_num(); ++i)
 			door_card->cards.push_back(laizi_card_);
 
 		door_group_.push_back(door_card);

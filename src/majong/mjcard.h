@@ -32,8 +32,8 @@ public:
 	enum EType
 	{
 		E_MYRIAD_TYPE,		//万
-		E_CYLINDER_TYPE,	//筒
-		E_SLIVER_TYPE,		//条
+		// E_CYLINDER_TYPE,	//筒
+		// E_SLIVER_TYPE,		//条
 		E_WIND_TYPE,		//风
 		E_WORD_TYPE,		//字
 		E_FLOWER_TYPE,		//花

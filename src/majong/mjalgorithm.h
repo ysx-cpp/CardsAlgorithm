@@ -24,6 +24,7 @@ enum class DoorCardType
 	KE_ZI, //刻子
 	PENG,//碰
 	GANG, //杠
+	AN_GANG,//暗杠
 };
 
 struct OutDoorCards
