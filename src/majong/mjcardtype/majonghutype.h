@@ -83,6 +83,80 @@ public:
     bool YiSeSanTongShun(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 一色三节高
     bool YiSeSanJieGao(const std::vector<OutDoorCards> &vec_door_cards) const;
+    
+    /**************12番*****************/
+    // 清龙
+    bool QingLong(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 一色三步高
+    bool YiSeSanBuGao(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 三暗刻
+    bool SanAnKe(const std::vector<OutDoorCards> &vec_door_cards) const;
+    
+    /**************12番*****************/
+    // 大于5
+    bool DaYu5(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 小于5
+    bool XiaoYu5(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 三风刻
+    bool SanFengKe(const std::vector<OutDoorCards> &vec_door_cards) const;
+    
+    /**************8番*****************/
+    
+    /**************6番*****************/
+    bool PengPengHu(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 碰碰胡
+    bool HunYiSe(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 双暗刻
+    bool ShuangAnGang(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 双箭刻
+    bool ShuangJianKe(const std::vector<OutDoorCards> &vec_door_cards) const;
+    
+    /**************4番*****************/
+    // 全带幺
+    bool QuanDaiYao(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 不求人
+    bool BuQiuRen(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 双明杠
+    bool ShuangMingGang(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 和绝张
+    bool HeJueZhang(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 直立
+    bool ZhiLi(const std::vector<OutDoorCards> &vec_door_cards) const;
+    /**************2番*****************/
+    // 箭刻
+    bool JianKe(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 门前清
+    bool MenQianQing(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 四归一
+    bool SiGuiYi(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 双暗刻
+    bool ShuangAnKe(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 暗杠
+    bool YiAnGang(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 断幺
+    bool DuanYao(const std::vector<OutDoorCards> &vec_door_cards) const;
+
+    /**************1番*****************/
+    // 二五八将
+    bool ErWuBaJiang(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 幺九头
+    bool YaoJiuTou(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 一般高
+    bool YiBanGao(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 连六
+    bool LianLiu(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 老少副
+    bool LaoShaoFu(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 幺九刻
+    bool YaoJiuKe(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 一明杠
+    bool YiMingGang(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 边张
+    bool BianZhang(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 坎张
+    bool KanZhang(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 点吊将
+    bool DanDiaoJing(const std::vector<OutDoorCards> &vec_door_cards) const;
 
 private:
     int ShunZiCount(const std::set<int> &set) const;
