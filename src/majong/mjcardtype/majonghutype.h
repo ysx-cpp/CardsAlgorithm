@@ -1,6 +1,7 @@
 #ifndef MAJONG_MJ_CARD_TYPE_H
 #define MAJONG_MJ_CARD_TYPE_H
 
+#include <set>
 #include "majong/mjalgorithm.h"
 
 namespace algorithm {
@@ -75,13 +76,16 @@ public:
     
     /**************24番*****************/
     // 七对
-    bool QiDui(const std::vector<OutDoorCards> &vec_door_cards) const;
+    bool QiDui(const std::vector<OutDoorCards> &vec_door_cards);
     // 清一色
     bool QingYiSe(const std::vector<OutDoorCards> &vec_door_cards) const;
-    // 一色三同花
+    // 一色三同顺
     bool YiSeSanTongShun(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 一色三节高
     bool YiSeSanJieGao(const std::vector<OutDoorCards> &vec_door_cards) const;
+
+private:
+    int ShunZiCount(const std::set<int> &set) const;
 
 private:
     uint16_t Wan(Card c) const {return c & 0x000F;}

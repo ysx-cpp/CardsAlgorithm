@@ -249,7 +249,7 @@ TEST(MajongHuType, YiSeSiTongShun)
 TEST(MajongHuType, YiSeSiJieGao) 
 {
     TestCards hand_cards {
-        0x0001, 0x0001, 0x0006, 0x0006, 0x0006, 0x0007, 0x0007, 0x0007, 0x0008, 0x0008, 0x0008, 0x0009, 0x0009, 0x0009
+        0x0001, 0x0001,  0x0008, 0x0008, 0x0008, 0x0009, 0x0009, 0x0009
     };
 
     MjAlgorithm algo;
@@ -258,6 +258,9 @@ TEST(MajongHuType, YiSeSiJieGao)
 
     VecDoorCards door_cards;
     algo.OutPutDoorCards(door_cards);
+
+    door_cards.push_back(GenDoorCards(DoorCardType::PENG, { 0x0006, 0x0006, 0x0006}));
+    door_cards.push_back(GenDoorCards(DoorCardType::PENG, { 0x0007, 0x0007, 0x0007}));
 
     EXPECT_TRUE(hutype.YiSeSiJieGao(door_cards));
 }
@@ -333,6 +336,39 @@ TEST(MajongHuType, HunYao9)
     algo.OutPutDoorCards(door_cards);
 
     EXPECT_TRUE(hutype.HunYao9(door_cards));
+}
+
+TEST(MajongHuType, YiSeSanTongShun) 
+{
+    TestCards hand_cards {
+        0x0001, 0x0001,  0x0003, 0x0003, 0x0003, 0x0007, 0x0007, 0x0007, 0x0008, 0x0008, 0x0008, 0x0009, 0x0009, 0x0009
+    };
+
+    MjAlgorithm algo;
+    algo.InputHandCard(hand_cards);
+    ASSERT_TRUE(algo.CheckPingHu());
+
+    VecDoorCards door_cards;
+    algo.OutPutDoorCards(door_cards);
+
+    EXPECT_TRUE(hutype.YiSeSanTongShun(door_cards));
+}
+
+TEST(MajongHuType, YiSeSanJieGao) 
+{
+    TestCards hand_cards {
+        0x0001, 0x0001,  0x0003, 0x0003, 0x0003, 0x0008, 0x0008, 0x0008, 0x0009, 0x0009, 0x0009
+    };
+
+    MjAlgorithm algo;
+    algo.InputHandCard(hand_cards);
+    ASSERT_TRUE(algo.CheckPingHu());
+
+    VecDoorCards door_cards;
+    algo.OutPutDoorCards(door_cards);
+    door_cards.push_back(GenDoorCards(DoorCardType::PENG, { 0x0007, 0x0007, 0x0007}));
+
+    EXPECT_TRUE(hutype.YiSeSanJieGao(door_cards));
 }
 
 int main(int argc, char *argv[])

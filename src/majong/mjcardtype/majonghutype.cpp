@@ -1,6 +1,5 @@
 #include "majonghutype.h"
 #include <algorithm>
-#include <set>
 #include <iostream>
 
 namespace algorithm {
@@ -226,20 +225,18 @@ bool MajongHuType::YiSeSiTongShun(const std::vector<OutDoorCards> &vec_door_card
     if (!QingYiSe(vec_door_cards))
         return false;
 
+    int count = 1;
     auto &first = vec_door_cards.front();
     for (auto it = vec_door_cards.begin() + 1; it != vec_door_cards.end(); ++it)
     {
-        if (it->card_type == DoorCardType::JIANG)
-            continue;        
-
-        if (it->card_type != DoorCardType::SHUN_ZI)
-            return false;
-
-        if (!lamb_compare(first.cards, it->cards))
-            return false;
+        if (it->card_type == DoorCardType::SHUN_ZI && first.card_type == DoorCardType::SHUN_ZI)
+        {
+            if (lamb_compare(first.cards, it->cards))
+                count++;
+        }
     }
 
-    return true;
+    return count >= 4;
 }
 
 // 一色四节高
@@ -251,7 +248,7 @@ bool MajongHuType::YiSeSiJieGao(const std::vector<OutDoorCards> &vec_door_cards)
     std::set<int> set;
     for (auto &it : vec_door_cards)
     {
-        if (it.card_type == DoorCardType::JIANG)
+        if (it.card_type != DoorCardType::KE_ZI && it.card_type != DoorCardType::PENG)
             continue;
 
         for (auto &iter : it.cards)
@@ -260,15 +257,7 @@ bool MajongHuType::YiSeSiJieGao(const std::vector<OutDoorCards> &vec_door_cards)
         }
     }
 
-    int count = 1;
-    auto prev = set.begin();
-    for (auto it = ++set.begin(); it != set.end(); ++it)
-    {
-        if ((*prev + 1) == *it)
-            count++;
-
-        ++prev;
-    }
+    int count = ShunZiCount(set);
     return count == 4;
 }
 
@@ -348,9 +337,16 @@ bool MajongHuType::HunYao9(const std::vector<OutDoorCards> &vec_door_cards) cons
 
 /**************24番*****************/
 // 七对
-bool MajongHuType::QiDui(const std::vector<OutDoorCards> &) const
+bool MajongHuType::QiDui(const std::vector<OutDoorCards> &vec_door_cards)
 {
-    return false;
+    std::vector<ICardPtr> cards;
+    for (auto &it : vec_door_cards)
+    {
+        cards.insert(cards.end(), it.cards.begin(), it.cards.end());
+    }
+
+    algorithm_.InputHandCard(cards);
+    return algorithm_.CheckQiDuiHu();
 }
 
 // 清一色
@@ -368,16 +364,66 @@ bool MajongHuType::QingYiSe(const std::vector<OutDoorCards> &vec_door_cards) con
     return true;
 }
 
-// 一色三同花
-bool MajongHuType::YiSeSanTongShun(const std::vector<OutDoorCards> &) const
+// 一色三同顺
+bool MajongHuType::YiSeSanTongShun(const std::vector<OutDoorCards> &vec_door_cards) const
 {
-    return false;
+    auto lamb_compare = [](const std::vector<ICardPtr> &vec1, const std::vector<ICardPtr> &vec2)->bool {
+        return (vec1[0]->face() == vec2[0]->face() &&
+                vec1[1]->face() == vec2[1]->face() &&
+                vec1[2]->face() == vec2[2]->face());
+    };
+
+    if (!QingYiSe(vec_door_cards))
+        return false;
+
+    int count = 1;
+    auto &first = vec_door_cards.front();
+    for (auto it = vec_door_cards.begin() + 1; it != vec_door_cards.end(); ++it)
+    {
+        if (it->card_type == DoorCardType::SHUN_ZI && first.card_type == DoorCardType::SHUN_ZI)
+        {
+            if (lamb_compare(first.cards, it->cards))
+                count++;
+        }
+    }
+
+    return count >= 3;
 }
 
 // 一色三节高
-bool MajongHuType::YiSeSanJieGao(const std::vector<OutDoorCards> &) const
+bool MajongHuType::YiSeSanJieGao(const std::vector<OutDoorCards> &vec_door_cards) const
 {
-    return false;
+    if (!QingYiSe(vec_door_cards))
+        return false;
+
+    std::set<int> set;
+    for (auto &it : vec_door_cards)
+    {
+        if (it.card_type != DoorCardType::KE_ZI && it.card_type != DoorCardType::PENG)
+            continue;
+
+        for (auto &iter : it.cards)
+        {
+            set.insert(iter->face());
+        }
+    }
+
+    int count = ShunZiCount(set);
+    return count >= 3;
+}
+
+int MajongHuType::ShunZiCount(const std::set<int> &set) const
+{
+    int count = 1;
+    auto prev = set.begin();
+    for (auto it = ++set.begin(); it != set.end(); ++it)
+    {
+        if ((*prev + 1) == *it)
+            count++;
+
+        ++prev;
+    }
+    return count;
 }
 
 } //namespace algorithm
