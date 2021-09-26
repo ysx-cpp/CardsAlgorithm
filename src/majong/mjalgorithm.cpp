@@ -8,6 +8,8 @@
 #include "mjalgorithm.h"
 #include <memory.h>
 #include <assert.h>
+#include <complex>
+#include <iostream>
 
 namespace algorithm {
 
@@ -82,6 +84,7 @@ void MjAlgorithm::OutPutDoorCards(std::vector<OutDoorCards> &vec_door_cards) con
 	for (auto &it : door_group_)
 	{
 		OutDoorCards door;
+		std::cout << "door_type:" << (int)door.card_type << std::endl;
 		for (auto &iter : it->cards)
 		{
 			// if (hand_cards_info_.find(iter) != hand_cards_info_.end() && !hand_cards_info_[iter].empty())
@@ -91,10 +94,14 @@ void MjAlgorithm::OutPutDoorCards(std::vector<OutDoorCards> &vec_door_cards) con
 			// 	hand_cards_info_[iter].pop_back();
 			// }
 
-			int type = this->type(iter);
-			uint16_t c = this->value(iter) << type;
-			door.cards.push_back(c);
+			MjCard::EType type = (MjCard::EType)this->type(iter);
+			MjCard::EFace face = (MjCard::EFace)this->value(iter);
+			ICardPtr mjc = std::make_shared<MjCard>(type, face, 0);
+			door.cards.push_back(mjc);
+
+			std::cout << mjc->type() << "|" << mjc->face() << std::endl;
 		}
+
 		door.card_type = it->card_type;
 		vec_door_cards.push_back(door);
 	}

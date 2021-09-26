@@ -89,13 +89,10 @@ private:
     uint16_t Zi(Card c) const {return c & 0x0F00;}
     uint16_t Hua(Card c) const {return c & 0xF000;}
 
-    bool IsWan(Card c) const {return Wan(c) != 0;}
-    bool IsFeng(Card c) const {return Feng(c) != 0;}
-    bool IsZi(Card c) const {return Zi(c) != 0;}
-    bool IsHua(Card c) const {return Hua(c) != 0;}
-
-    MjCard::EType Type(Card c) const;
-    uint16_t Value(Card c) const;
+    bool IsMyriao(const ICardPtr &c) const {return c->type() == MjCard::E_MYRIAD_TYPE;} //万
+    bool IsWind(const ICardPtr &c) const {return c->type() == MjCard::E_WIND_TYPE;} //风
+    bool IsWord(const ICardPtr &c) const {return c->type() == MjCard::E_WORD_TYPE;} //字
+    bool IsFlower(const ICardPtr &c) const {return c->type() == MjCard::E_FLOWER_TYPE;} //花
 
 private:
     MjAlgorithm algorithm_;

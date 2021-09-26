@@ -30,7 +30,7 @@ enum class DoorCardType
 struct OutDoorCards
 {
 	DoorCardType card_type = DoorCardType::INVALID;
-	std::vector<uint16_t> cards;
+	std::vector<ICardPtr> cards;
 };
 
 class MjAlgorithm
@@ -52,9 +52,9 @@ public:
 	bool CheckQiDuiHu();
 	bool CheckShiSanYaoHu();
 
-	void SetLaiZiNum(const int num) { laizi_num_ = num; }
+	void set_laizi_num(const int num) { laizi_num_ = num; }
 	int laizi_num() const { return laizi_num_; }
-	void SetLaiCard(const Card card) { laizi_card_ = card; }
+	void set_laizi_card(const Card card) { laizi_card_ = card; }
 	const Card &laizi_card() const { return laizi_card_; }
 
 private:
