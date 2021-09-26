@@ -75,7 +75,8 @@ bool MajongHuType::SiGang(const std::vector<OutDoorCards> &vec_door_cards) const
     int count = 0;
     for (auto &it : vec_door_cards)
     {
-        if (it.card_type == DoorCardType::GANG)
+        if (it.card_type == DoorCardType::GANG ||
+            it.card_type == DoorCardType::AN_GANG)
             count++;
     }
     return count == 4;
@@ -247,15 +248,16 @@ bool MajongHuType::YiSeSiJieGao(const std::vector<OutDoorCards> &vec_door_cards)
     if (!QingYiSe(vec_door_cards))
         return false;
 
-    // 碰碰胡
-
     std::set<int> set;
     for (auto &it : vec_door_cards)
     {
         if (it.card_type == DoorCardType::JIANG)
             continue;
-            
-        set.insert(it.cards.front()->face());
+
+        for (auto &iter : it.cards)
+        {
+            set.insert(iter->face());
+        }
     }
 
     int count = 1;
@@ -277,40 +279,42 @@ bool MajongHuType::YiSeSiBuGao(const std::vector<OutDoorCards> &vec_door_cards) 
     if (!QingYiSe(vec_door_cards))
         return false;
 
-    auto vec_copy = vec_door_cards;
-    for (auto &it : vec_copy)
+    std::set<int> set;
+    for (auto &it : vec_door_cards)
     {
-        std::sort(it.cards.begin(), it.cards.end(), [](const ICardPtr &item1, const ICardPtr &item2){
-            return item1->face() < item2->face();
+        if (it.card_type != DoorCardType::SHUN_ZI)
+            continue;
+
+        auto min = std::min_element(it.cards.begin(), it.cards.end(), [](const ICardPtr &c1, const ICardPtr &c2){
+            return c1->face() < c2->face();
         });
+
+        set.insert((*min)->face());
     }
 
-    std::sort(vec_copy.begin(), vec_copy.end(), [](const OutDoorCards &item1, const OutDoorCards &item2){
-        return item1.cards.front()->face() < item2.cards.front()->face();
-    });
-
     int count = 1;
-    for (auto it = vec_copy.begin() + 1; it != vec_copy.end(); ++it)
+
     {
-        auto prev = it - 1;
-        auto c1 = prev->cards.front();
-        auto c2 = it->cards.front();
-        if (c1->face() + 1 != c2->face())
-            count++;
+        auto prev = set.begin();
+        for (auto it = ++set.begin(); it != set.end(); ++it, ++prev)
+        {
+            if (*prev + 1 == *it)
+                count++;
+        }
     }
 
     if (count == 4)
         return true;
 
-    count = 1;
-    for (auto it = vec_copy.begin() + 1; it != vec_copy.end(); ++it)
     {
-        auto prev = it - 1;
-        auto c1 = prev->cards.front();
-        auto c2 = it->cards.front();
-        if (c1->face() + 2 != c2->face())
-            count++;
-    }    
+        count = 1;
+        auto prev2 = set.begin();
+        for (auto it = ++set.begin(); it != set.end(); ++it, ++prev2)
+        {
+            if (*prev2 + 2 == *it)
+                count++;
+        }
+    }
 
     return count == 4;    
 }
@@ -321,7 +325,8 @@ bool MajongHuType::SanGang(const std::vector<OutDoorCards> &vec_door_cards) cons
     int count = 0;
     for (auto &it : vec_door_cards)
     {
-        if (it.card_type == DoorCardType::GANG && it.cards.size() == 4)
+        if (it.card_type == DoorCardType::GANG ||
+            it.card_type == DoorCardType::AN_GANG)
             count++;
     }
     return count == 3;

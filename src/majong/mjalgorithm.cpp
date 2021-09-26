@@ -25,6 +25,7 @@ void MjAlgorithm::InputHandCard(const std::vector<ICardPtr> &hand_cards)
 {
 	hand_cards_info_.clear();
 	memset(card_group_, 0, sizeof(CardGroup));
+	door_group_.clear();
 
 	for (auto &iter : hand_cards)
 	{
