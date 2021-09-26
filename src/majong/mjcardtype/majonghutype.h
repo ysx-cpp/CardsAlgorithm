@@ -41,7 +41,7 @@ public:
     // 大三元 
     bool DaSanYuan(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 九宝连灯
-    bool BaoLianDeng9(const std::vector<OutDoorCards> &vec_door_cards) const;
+    bool JiuBaoLianDeng(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 四杠
     bool SiGang(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 七连对

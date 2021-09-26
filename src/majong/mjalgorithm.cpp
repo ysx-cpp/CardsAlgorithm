@@ -135,8 +135,8 @@ bool MjAlgorithm::CheckJiangCanHu(CardGroup cards)
 		if (cards[i][0] == 0) continue;
 		for (int j = 1; j < CLOU; ++j)
 		{
-			if (cards[i][j] > 2) continue;
-			if (cards[i][j] == 2)
+			//if (cards[i][j] > 2) continue;
+			if (cards[i][j] >= 2)
 			{
 				cards[i][j] -= 2;
 				cards[i][0] -= 2;
@@ -154,7 +154,7 @@ bool MjAlgorithm::CheckJiangCanHu(CardGroup cards)
 				}
 			}
 
-			if (cards[i][j] == 1 && laizi_num() >= 1)
+			if (cards[i][j] >= 1 && laizi_num() >= 1)
 			{
 				cards[i][j] -= 1;
 				cards[i][0] -= 1;
