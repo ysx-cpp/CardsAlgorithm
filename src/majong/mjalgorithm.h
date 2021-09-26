@@ -105,7 +105,7 @@ public:
 
 	Card recoverCard(const int &type, const int &value) const
 	{
-		return ((type + 1) << 4) | (value & 0x0F);
+		return (type << 4) | (value & 0x0F);
 	}
 
 	int type(const Card c) const 

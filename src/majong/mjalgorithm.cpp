@@ -75,6 +75,7 @@ void MjAlgorithm::InputHandCard(const std::vector<uint16_t> &hand_cards)
 
 		ICardPtr mjc = std::make_shared<MjCard>(type, face, 0);
 		cards.push_back(mjc);
+		//std::cout << mjc->type() << "|" << mjc->face() << std::endl;
 	}
 	InputHandCard(cards);
 }
@@ -84,7 +85,6 @@ void MjAlgorithm::OutPutDoorCards(std::vector<OutDoorCards> &vec_door_cards) con
 	for (auto &it : door_group_)
 	{
 		OutDoorCards door;
-		std::cout << "door_type:" << (int)door.card_type << std::endl;
 		for (auto &iter : it->cards)
 		{
 			// if (hand_cards_info_.find(iter) != hand_cards_info_.end() && !hand_cards_info_[iter].empty())
@@ -101,9 +101,9 @@ void MjAlgorithm::OutPutDoorCards(std::vector<OutDoorCards> &vec_door_cards) con
 
 			std::cout << mjc->type() << "|" << mjc->face() << std::endl;
 		}
-
 		door.card_type = it->card_type;
 		vec_door_cards.push_back(door);
+		std::cout << "door_type:" << (int)door.card_type << std::endl;
 	}
 }
 
