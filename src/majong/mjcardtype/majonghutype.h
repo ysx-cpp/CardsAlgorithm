@@ -38,7 +38,6 @@ enum class HuAction
     HaiDiLaoYue,        // 海底捞月（8番）
     GangShangHua,       // 杠上开花（8番）
     QiangGangHu,        // 抢杠胡（8番）
-    ZiMo,               // 自摸（1番）
 };
 
 class MajongHuType
@@ -185,17 +184,21 @@ public:
     // 一明杠
     bool YiMingGang(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 边张
-    bool BianZhang(const std::vector<OutDoorCards> &vec_door_cards) const;
+    bool BianZhang(const std::vector<OutDoorCards> &vec_door_cards, const ICardPtr &c) const;
     // 坎张
-    bool KanZhang(const std::vector<OutDoorCards> &vec_door_cards) const;
-    // 点吊将
-    bool DanDiaoJing(const std::vector<OutDoorCards> &vec_door_cards) const;
+    bool KanZhang(const std::vector<OutDoorCards> &vec_door_cards, const ICardPtr &c) const;
+    // 单吊将
+    bool DanDiaoJing(const std::vector<OutDoorCards> &vec_door_cards, const ICardPtr &c) const;
 
 private:
     int ShunZiCount(const std::set<int> &set) const;
     bool IsAnKe(const OutDoorCards &door_cards) const;
     bool IsJianKe(const OutDoorCards &door_cards) const;
     bool IsFengKe(const OutDoorCards &door_cards) const;
+    bool IsTongShun(const OutDoorCards &door_cards1, const OutDoorCards &door_cards2) const;
+    bool IsShunZi123(const OutDoorCards &door_cards) const;
+    bool IsShunZi789(const OutDoorCards &door_cards) const;
+    bool IsNotHandDoorCards(const OutDoorCards &door_cards) const;
 
 private:
     uint16_t Wan(Card c) const {return c & 0x000F;}

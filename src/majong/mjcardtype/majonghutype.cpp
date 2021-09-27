@@ -356,12 +356,6 @@ bool MajongHuType::QingYiSe(const std::vector<OutDoorCards> &vec_door_cards) con
 // 一色三同顺
 bool MajongHuType::YiSeSanTongShun(const std::vector<OutDoorCards> &vec_door_cards) const
 {
-    auto lamb_compare = [](const std::vector<ICardPtr> &vec1, const std::vector<ICardPtr> &vec2)->bool {
-        return (vec1[0]->face() == vec2[0]->face() &&
-                vec1[1]->face() == vec2[1]->face() &&
-                vec1[2]->face() == vec2[2]->face());
-    };
-
     if (!QingYiSe(vec_door_cards))
         return false;
 
@@ -369,14 +363,11 @@ bool MajongHuType::YiSeSanTongShun(const std::vector<OutDoorCards> &vec_door_car
     auto &first = vec_door_cards.front();
     for (auto it = vec_door_cards.begin() + 1; it != vec_door_cards.end(); ++it)
     {
-        if (it->card_type == DoorCardType::SHUN_ZI && first.card_type == DoorCardType::SHUN_ZI)
-        {
-            if (lamb_compare(first.cards, it->cards))
-                count++;
-        }
+        if (IsTongShun(first, *it))
+            count++;
     }
 
-    return count >= 3;
+    return count == 3;
 }
 
 // 一色三节高
@@ -695,13 +686,8 @@ bool MajongHuType::SiGuiYi(const std::vector<OutDoorCards> &vec_door_cards) cons
 
     for (auto &it : vec_door_cards)
     {
-        if (it.card_type == DoorCardType::CHI ||
-            it.card_type == DoorCardType::PENG ||
-            it.card_type == DoorCardType::GANG ||
-            it.card_type == DoorCardType::AN_GANG)
-        {
+        if (IsNotHandDoorCards(it))
             continue;
-        }
 
         for (auto &iter : it.cards)
         {
@@ -752,6 +738,200 @@ bool MajongHuType::DuanYao(const std::vector<OutDoorCards> &vec_door_cards) cons
         }
     }
     return true;
+}
+
+/**************1番*****************/
+// 二五八将
+bool MajongHuType::ErWuBaJiang(const std::vector<OutDoorCards> &vec_door_cards) const
+{
+    for (auto &it : vec_door_cards)
+    {
+        if (it.card_type != DoorCardType::JIANG)
+            continue;
+
+        auto &c = it.cards.front();
+
+        if (IsMyriao(c))
+        {
+            if (c->face() != 2 && c->face() != 5 && c->face() != 8)
+                return false;
+        }
+    }
+    return true;
+}
+
+// 幺九头
+bool MajongHuType::YaoJiuTou(const std::vector<OutDoorCards> &vec_door_cards) const
+{
+    for (auto &it : vec_door_cards)
+    {
+        if (it.card_type != DoorCardType::JIANG)
+            continue;
+
+        auto &c = it.cards.front();
+
+        if (IsMyriao(c))
+        {
+            if (c->face() != 1 && c->face() != 9)
+                return false;
+        }
+    }
+    return true;
+}
+
+// 一般高
+bool MajongHuType::YiBanGao(const std::vector<OutDoorCards> &vec_door_cards) const
+{
+    int count = 1;
+    auto &first = vec_door_cards.front();
+    for (auto it = vec_door_cards.begin() + 1; it != vec_door_cards.end(); ++it)
+    {
+        if (IsTongShun(first, *it))
+            count++;
+    }
+
+    return count == 2;
+}
+
+// 连六
+bool MajongHuType::LianLiu(const std::vector<OutDoorCards> &hand_door_cards) const
+{
+    std::set<int> set;
+    for (auto &it : hand_door_cards)
+    {
+        for (auto &iter : it.cards)
+        {
+            if (!IsMyriao(iter))
+                continue;
+
+            set.insert(iter->face());
+        }
+    }
+    return ShunZiCount(set) == 6;
+}
+
+// 老少副
+bool MajongHuType::LaoShaoFu(const std::vector<OutDoorCards> &vec_door_cards) const
+{
+    auto lamb123 = [](const std::vector<ICardPtr> &vec)->bool {
+        return (vec[0]->face() == 1 && vec[1]->face() == 2 && vec[2]->face() == 3);
+    };
+
+    auto lamb789 = [](const std::vector<ICardPtr> &vec) -> bool {
+        return (vec[0]->face() == 7 && vec[1]->face() == 8 && vec[2]->face() == 9);
+    };
+
+    int count_123 = 0;
+    int count_789 = 0;
+    for (auto &it : vec_door_cards)
+    {
+        auto vec = it.cards;
+        std::sort(vec.begin(), vec.end(), [](const ICardPtr &c1, ICardPtr &c2){
+            return c1->face() < c2->face();
+        });
+
+        if (it.card_type == DoorCardType::SHUN_ZI && lamb123(vec))
+            count_123++;
+
+        if (it.card_type == DoorCardType::SHUN_ZI && lamb789(vec))
+            count_789++;
+    }
+
+    return (count_123 >= 1 && count_789 >= 1);    
+}
+
+// 幺九刻
+bool MajongHuType::YaoJiuKe(const std::vector<OutDoorCards> &vec_door_cards) const
+{
+    for (auto &it : vec_door_cards)
+    {
+        if (it.card_type == DoorCardType::KE_ZI)
+        {
+            auto &c = it.cards.front();
+            if (IsMyriao(c) && (c->face() == 1 || c->face() == 9))
+                return true;
+
+            if (IsWind(c) || IsWord(c))
+                return true;
+        }
+    }
+    return false;
+}
+
+// 一明杠
+bool MajongHuType::YiMingGang(const std::vector<OutDoorCards> &vec_door_cards) const
+{
+    int count = 0;
+    for (auto &it : vec_door_cards)
+    {
+        if (it.card_type == DoorCardType::GANG)
+            count++;
+    }
+    return count == 1;
+}
+
+// 边张
+bool MajongHuType::BianZhang(const std::vector<OutDoorCards> &vec_door_cards, const ICardPtr &c) const
+{
+    // auto lamb_is_same = [](const ICardPtr &c1, const ICardPtr &c2)->bool {
+    //     return c1->type() == c2->type() && c1->face() == c2->face();
+    // };
+
+    for (auto &it : vec_door_cards)
+    {
+        if (IsNotHandDoorCards(it))
+            continue;
+
+        if (it.card_type == DoorCardType::SHUN_ZI)
+        {
+            if (IsShunZi123(it) || IsShunZi789(it))
+            {
+                if (c == it.cards[0])
+                    return true;
+
+                if (c == it.cards[2])
+                    return true;
+            }
+        }
+    }
+    return false;
+}
+
+// 坎张
+bool MajongHuType::KanZhang(const std::vector<OutDoorCards> &vec_door_cards, const ICardPtr &c) const
+{
+    for (auto &it : vec_door_cards)
+    {
+        if (IsNotHandDoorCards(it))
+            continue;
+
+        if (it.card_type == DoorCardType::SHUN_ZI)
+        {
+            if (c == it.cards[1])
+                return true;
+        }
+    }
+    return false;
+}
+
+// 单吊将
+bool MajongHuType::DanDiaoJing(const std::vector<OutDoorCards> &vec_door_cards, const ICardPtr &c) const
+{
+    for (auto &it : vec_door_cards)
+    {
+        if (IsNotHandDoorCards(it))
+            continue;
+
+        if (it.card_type == DoorCardType::JIANG)
+        {
+            for (auto &iter : it.cards)
+            {
+                if (iter == c)
+                    return true;
+            }
+        }
+    }
+    return false;
 }
 
 int MajongHuType::ShunZiCount(const std::set<int> &set) const
@@ -819,6 +999,50 @@ bool MajongHuType::IsFengKe(const OutDoorCards &door_cards) const
     }
 
     return true;    
+}
+
+bool MajongHuType::IsTongShun(const OutDoorCards &door_cards1, const OutDoorCards &door_cards2) const
+{
+    if (door_cards1.card_type != DoorCardType::SHUN_ZI ||
+        door_cards2.card_type != DoorCardType::SHUN_ZI)
+        return false;
+
+    auto &vec1 = door_cards1.cards;
+    auto &vec2 = door_cards2.cards;
+
+    if (vec1.front()->type() != vec2.front()->type())
+        return false;
+
+    return (vec1[0]->face() == vec2[0]->face() &&
+            vec1[1]->face() == vec2[1]->face() &&
+            vec1[2]->face() == vec2[2]->face());
+}
+
+bool MajongHuType::IsShunZi123(const OutDoorCards &door_cards) const
+{
+    auto &vec = door_cards.cards;
+    return (vec[0]->face() == 1 && vec[1]->face() == 2 && vec[2]->face() == 3);
+}
+
+bool MajongHuType::IsShunZi789(const OutDoorCards &door_cards) const
+{
+    auto &vec = door_cards.cards;
+    return (vec[0]->face() == 7 && vec[1]->face() == 8 && vec[2]->face() == 9);
+}
+
+bool MajongHuType::IsNotHandDoorCards(const OutDoorCards &door_cards) const
+{
+    switch (door_cards.card_type)
+    {
+    case DoorCardType::CHI:
+    case DoorCardType::PENG:
+    case DoorCardType::GANG:
+    case DoorCardType::AN_GANG:
+        break;
+    default:
+        return false;
+    }
+    return true;
 }
 
 } //namespace algorithm
