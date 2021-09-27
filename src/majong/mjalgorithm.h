@@ -22,6 +22,7 @@ enum class DoorCardType
 	JIANG,	//将牌
 	SHUN_ZI, //顺子
 	KE_ZI, //刻子
+	CHI,  //吃
 	PENG,//碰
 	GANG, //杠
 	AN_GANG,//暗杠

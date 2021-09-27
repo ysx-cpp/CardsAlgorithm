@@ -28,6 +28,19 @@ enum class HuType
     DA_SAN_YUAN,        //大三元
 };
 
+enum class HuAction
+{
+    TianHu,             // 天胡（88番）
+    DiHu,               // 地胡（88番）
+    RenHu,              // 人胡（88番）
+    TianTing,           // 天听（16番）
+    MiaoShouHuiChun,    // 妙手回春（8番）
+    HaiDiLaoYue,        // 海底捞月（8番）
+    GangShangHua,       // 杠上开花（8番）
+    QiangGangHu,        // 抢杠胡（8番）
+    ZiMo,               // 自摸（1番）
+};
+
 class MajongHuType
 {
     using Card = uint16_t;
@@ -49,6 +62,12 @@ public:
     bool QiLianDui(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 百万石
     bool BaiWanShi(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 天胡
+    bool TianHu(HuAction hu_action) const {return hu_action == HuAction::TianHu;}
+    // 地胡
+    bool DiHu(HuAction hu_action) const {return hu_action == HuAction::DiHu;}
+    // 人胡
+    bool RenHu(HuAction hu_action) const {return hu_action == HuAction::RenHu;}
     
     /**************64番*****************/
     // 小四喜
@@ -84,13 +103,15 @@ public:
     // 一色三节高
     bool YiSeSanJieGao(const std::vector<OutDoorCards> &vec_door_cards) const;
     
-    /**************12番*****************/
+    /**************16番*****************/
     // 清龙
     bool QingLong(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 一色三步高
     bool YiSeSanBuGao(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 三暗刻
     bool SanAnKe(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 天听
+    bool TianTing(HuAction hu_action) const;
     
     /**************12番*****************/
     // 大于5
@@ -101,11 +122,22 @@ public:
     bool SanFengKe(const std::vector<OutDoorCards> &vec_door_cards) const;
     
     /**************8番*****************/
+    // 妙手回春
+    bool MiaoShouHuiChun(HuAction hu_action) const {return hu_action == HuAction::MiaoShouHuiChun;}
+    // 海底捞月
+    bool HaiDiLaoYue(HuAction hu_action) const {return hu_action == HuAction::HaiDiLaoYue;}
+    // 杠上开花
+    bool GangShangHua(HuAction hu_action) const {return hu_action == HuAction::GangShangHua;}
+    // 抢杠胡
+    bool QiangGangHu(HuAction hu_action) const {return hu_action == HuAction::QiangGangHu;}
     
     /**************6番*****************/
-    bool PengPengHu(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 碰碰胡
+    bool PengPengHu(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 混一色
     bool HunYiSe(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 全球人
+    bool QuanQiuRen(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 双暗刻
     bool ShuangAnGang(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 双箭刻
@@ -115,18 +147,19 @@ public:
     // 全带幺
     bool QuanDaiYao(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 不求人
-    bool BuQiuRen(const std::vector<OutDoorCards> &vec_door_cards) const;
+    bool BuQiuRen(const std::vector<OutDoorCards> &vec_door_cards, bool zimo) const;
     // 双明杠
     bool ShuangMingGang(const std::vector<OutDoorCards> &vec_door_cards) const;
-    // 和绝张
-    bool HeJueZhang(const std::vector<OutDoorCards> &vec_door_cards) const;
+    // 胡绝张
+    bool HuJueZhang(bool juezhang) const {return juezhang;}
     // 直立
-    bool ZhiLi(const std::vector<OutDoorCards> &vec_door_cards) const;
+    bool ZhiLi(const std::vector<OutDoorCards> &vec_door_cards, HuAction hu_action, bool baoting) const;
+
     /**************2番*****************/
     // 箭刻
     bool JianKe(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 门前清
-    bool MenQianQing(const std::vector<OutDoorCards> &vec_door_cards) const;
+    bool MenQianQing(const std::vector<OutDoorCards> &vec_door_cards, HuAction hu_action) const;
     // 四归一
     bool SiGuiYi(const std::vector<OutDoorCards> &vec_door_cards) const;
     // 双暗刻
@@ -160,6 +193,9 @@ public:
 
 private:
     int ShunZiCount(const std::set<int> &set) const;
+    bool IsAnKe(const OutDoorCards &door_cards) const;
+    bool IsJianKe(const OutDoorCards &door_cards) const;
+    bool IsFengKe(const OutDoorCards &door_cards) const;
 
 private:
     uint16_t Wan(Card c) const {return c & 0x000F;}
