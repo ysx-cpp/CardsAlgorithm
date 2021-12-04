@@ -125,6 +125,11 @@ bool MjAlgorithm::CheckShiSanYaoHu()
 
 bool MjAlgorithm::CheckJiangCanHu(CardGroup cards)
 {
+	if (CheckAssignJiangHu(cards))
+	{
+		return true;
+	}
+
 	if (laizi_num() >= 2 && CheckLaiZiJiangHu(cards))
 	{
 		return true;
@@ -137,6 +142,57 @@ bool MjAlgorithm::CheckJiangCanHu(CardGroup cards)
 		for (int j = 1; j < CLOU; ++j)
 		{
 			//if (cards[i][j] > 2) continue;
+			if (cards[i][j] >= 2)
+			{
+				cards[i][j] -= 2;
+				cards[i][0] -= 2;
+				is_hu = CheckCompose333(cards);
+				cards[i][j] += 2;
+				cards[i][0] += 2;
+				if (is_hu)
+				{
+					auto door_card = std::make_shared<DoorCards>();
+					door_card->card_type = DoorCardType::JIANG;
+					door_card->cards.push_back(recoverCard(i, j));
+					door_card->cards.push_back(recoverCard(i, j));
+					door_group_.push_back(door_card);
+					return true;
+				}
+			}
+
+			if (cards[i][j] >= 1 && laizi_num() >= 1)
+			{
+				cards[i][j] -= 1;
+				cards[i][0] -= 1;
+				laizi_num_ -= 1;
+				is_hu = CheckCompose333(cards);
+				cards[i][j] += 1;
+				cards[i][0] += 1;
+				laizi_num_ += 1;
+				if (is_hu)
+				{
+					auto door_card = std::make_shared<DoorCards>();
+					door_card->card_type = DoorCardType::JIANG;
+					door_card->cards.push_back(recoverCard(i, j));
+					door_card->cards.push_back(recoverCard(i, j));
+					door_group_.push_back(door_card);
+					return true;
+				}
+			}
+		}
+	}
+	return is_hu;
+}
+
+bool MjAlgorithm::CheckAssignJiangHu(CardGroup cards)
+{
+	std::vector<int> vec {5, 2, 8, 1, 9};
+	bool is_hu = false;
+	for (int i = 0; i < ROW; ++i)
+	{
+		if (cards[i][0] == 0) continue;
+		for (auto &j : vec)
+		{
 			if (cards[i][j] >= 2)
 			{
 				cards[i][j] -= 2;
@@ -350,7 +406,12 @@ bool MjAlgorithm::CheckCompose333(CardGroup cards)
 			}
 		}
 	}
-	return laizi_num_ % 3 == 0 && cards[0][0] + cards[1][0] == 0;
+
+	int card_num = 0;
+	for (int i = 0; i < ROW; ++i)
+		card_num += cards[i][0];
+
+	return laizi_num_ % 3 == 0 && card_num == 0;
 }
 
 bool MjAlgorithm::QiDuiHu(CardGroup cards)
@@ -380,6 +441,24 @@ bool MjAlgorithm::QiDuiHu(CardGroup cards)
 	if ((all_card + laizi_num_ != 14) || single_cnt != laizi_num_)
 	{
 		return false;
+	}
+
+	for (int i = 0; i < ROW; ++i)
+	{
+		if (cards[i][0] == 0) continue;
+		for (unsigned j = 1; j < CLOU; j++)
+		{
+			int num = cards[i][j];
+			while (num >= 2)
+			{
+				auto door_card = std::make_shared<DoorCards>();
+				door_card->card_type = DoorCardType::JIANG;
+				door_card->cards.push_back(recoverCard(i, j));
+				door_card->cards.push_back(recoverCard(i, j));
+				door_group_.push_back(door_card);
+				num -= 2;
+			}
+		}
 	}
 	return true;
 }

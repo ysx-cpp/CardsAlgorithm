@@ -25,6 +25,7 @@ enum class DoorCardType
 	CHI,  //吃
 	PENG,//碰
 	GANG, //杠
+	PENG_GANG,//碰杠
 	AN_GANG,//暗杠
 };
 
@@ -60,6 +61,7 @@ public:
 
 private:
 	bool CheckJiangCanHu(CardGroup cards);
+	bool CheckAssignJiangHu(CardGroup cards);
 	bool CheckLaiZiJiangHu(CardGroup cards);
 	bool CheckCompose333(CardGroup cards);
 	bool QiDuiHu(CardGroup cards);
@@ -68,6 +70,7 @@ private:
 public:
 	bool CheckComposeShuZi(const CardGroup cards, const int &type, const int &value) const
 	{
+		if (type != MjCard::E_MYRIAD_TYPE) return false;
 		if (value > 7) return false;
 		return cards[type][value + 1] > 0 && cards[type][value + 2];
 	}
