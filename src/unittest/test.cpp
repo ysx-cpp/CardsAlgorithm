@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "majong/majonghutype.h"
+#include "mahjong/mahjonghutype.h"
 
 using namespace algorithm;
 

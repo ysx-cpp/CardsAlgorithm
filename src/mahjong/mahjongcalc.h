@@ -2,7 +2,7 @@
 #define MAJONG_CALC_H
 
 #include <set>
-#include "majonghutype.h"
+#include "mahjonghutype.h"
 
 namespace algorithm {
 

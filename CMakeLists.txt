@@ -22,7 +22,7 @@ aux_source_directory(src/poker SRC2)
 aux_source_directory(src/zipai SRC3)
 
 list(APPEND SRCS ${SRC1} ${SRC2} ${SRC3})
-find_library(gtest pthread )
+#find_library(gtest pthread )
 
 if(WIN32)
 	file(GLOB HEAD src/*.h*)

@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
-#include "majong/majonghutype.h"
-#include "majong/majongcalc.h"
+#include "mahjong/mahjonghutype.h"
+#include "mahjong/mahjongcalc.h"
 
 using namespace algorithm;
 
